@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include "Resources.h"
 
 class Isometric_Render {
 private:
@@ -17,8 +18,18 @@ public:
 	void set_x(int, int);
 	void set_y(int, int);
 	void set_z(int, int);
+	void create_image(World_Map);
+	place_cube(World_Map, int, int, int);
 };
 
+void Isometric_Render::create_image(World_Map world)
+{
+
+}
+
+void Isometric_Render::place_cube(World_Map world, int x, int y, int z) {
+
+}
 int * Isometric_Render::get_x() {
 	int result[2];
 	result[0] = this->x_l;

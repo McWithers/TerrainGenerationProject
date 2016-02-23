@@ -12,7 +12,10 @@ int main() {
 	for (i = 0; i < Plot.get_x(); i++) {
 		for (j = 0; j < Plot.get_y(); j++) {
 			for (k = 0; k < Plot.get_z(); k++) {
-				(int) (25 + 10 * sin(i));
+				if (k == (int)(25 + 10 * sin(i))) {
+					Plot.set_point(i, j, k);
+					cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
+				}
 				
 			}
 		}

@@ -3,20 +3,29 @@
 #include <stdlib.h>
 using namespace std;
 
+struct voxel {
+	bool isSet = false;
+	unsigned char r = 0;
+	unsigned char g = 0;
+	unsigned char b = 0;
+};
+
 class World_Map {
 private:
+	
 	int x;
 	int y;
 	int z;
-	int *** map;
 	
 public:
+	
+	voxel*** map;
 	void allocate_memory();
 	int get_x();
 	int get_y();
 	int get_z();
-	int *** get_map();
-	int get_point(int, int, int);
+	voxel *** get_map();
+	voxel get_point(int, int, int);
 	void set_x(int);
 	void set_y(int);
 	void set_z(int);
@@ -30,27 +39,26 @@ void World_Map::allocate_memory() {
 	int y_i;
 	int z_i;
 	
-	this -> map = (int ***) calloc(x, sizeof(int));
+	this -> map = (voxel ***) calloc(x, sizeof(voxel));
 	for (x_i = 0; x_i < this->x; x_i++) {
-		map[x_i] = (int **) calloc(y, sizeof(int));
+		map[x_i] = (voxel **) calloc(y, sizeof(voxel));
 		for (y_i = 0; y_i < this->y; y_i++) {
-			map[x_i][y_i] = (int *) calloc(z, sizeof(int));
+			map[x_i][y_i] = (voxel *) calloc(z, sizeof(voxel));
 		}
 	}
 }
 
-int *** World_Map::get_map() {
+voxel *** World_Map::get_map() {
 	return this->map;
 }
 
-int World_Map::get_point(int c_x, int c_y, int c_z) {
-	int *** m = get_map();
-	if (m[c_x][c_y][c_z]) { return 1; }
-	return 0;
+voxel World_Map::get_point(int c_x, int c_y, int c_z) {
+	voxel *** m = get_map();
+	return m[c_x][c_y][c_z];
 }
 
 void World_Map::set_point(int n_x, int n_y, int n_z) {
-	int *** m = get_map();
+	voxel *** m = get_map();
 	m[n_x][n_y][n_z] = 1;
 }
 
@@ -103,3 +111,4 @@ World_Map::~World_Map() {
 	}
 	free(map);
 }
+
