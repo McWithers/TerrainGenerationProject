@@ -11,6 +11,7 @@ private:
 	int z_l;
 	int z_u;
 public:
+i'm making a change
 	void terrain_generation();
 	int * get_x();
 	int * get_y();
