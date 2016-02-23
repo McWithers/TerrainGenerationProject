@@ -20,8 +20,8 @@ public:
 	void set_x(int);
 	void set_y(int);
 	void set_z(int);
+	World_Map(int, int, int);
 	void set_point(int, int, int);
-
 	~World_Map();
 };
 
@@ -79,6 +79,17 @@ void World_Map::set_y(int new_y) {
 
 void World_Map::set_z(int new_z) {
 	this->z = new_z;
+}
+
+World_Map::World_Map(int x, int y, int z) {
+	cout << "The value for x is:" << x << endl;
+	cout << "The value for y is:" << y << endl;
+	cout << "The value for z is:" << z << endl;
+	this->set_x(x);
+	this->set_y(y);
+	this->set_z(z);
+	this->allocate_memory();
+
 }
 
 World_Map::~World_Map() {

@@ -11,7 +11,6 @@ private:
 	int z_l;
 	int z_u;
 public:
-	void terrain_generation();
 	int * get_x();
 	int * get_y();
 	int * get_z();
@@ -54,8 +53,4 @@ void Isometric_Render::set_y(int y_l, int y_u) {
 void Isometric_Render::set_z(int z_l, int z_u) {
 	this->z_l = z_l;
 	this->z_u = z_u;
-}
-
-void Isometric_Render::terrain_generation() {
-
 }
