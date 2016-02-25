@@ -137,9 +137,78 @@ int bmp::Write_BMP_Image(FILE* fptr, BMP_Image* image)
    return TRUE;
 }
 
-bmp::bmp(World_Map world)
+bmp::bmp(int width, int height)
 {
-	
+	BMP_Image *image;
+	int pixelSize = 24 / 8;
+	int i;
+	int j;
+	int k;
+	int newWidth = width;
+	int imageWidth = width;
+	int newPad = 0;
+	int oldPad = 0;
+	if ((pixelSize * newWidth) % 4 != 0) {
+		newPad = 4 - ((pixelSize * newWidth) % 4);
+	}
+	if ((pixelSize * imageWidth) % 4 != 0) {
+		oldPad = 4 - ((pixelSize * imageWidth) % 4);
+	}
+	int newHeight = height;
+	int imageHeight = height;
+	unsigned char *newData = static_cast<unsigned char*>(calloc(pixelSize*(newWidth + newPad), newHeight));
+	int indexOld = 0;
+	int indexNew = 0;
+	for (i = 0; i < imageHeight; i++) {
+		for (j = 0; j < imageWidth; j++) {
+			if (j >= 0 && j <= width && i >= 0 && i <= height) {
+				for (k = 0; k < pixelSize; k++) {
+					newData[indexNew] = 0;
+					indexNew++;
+					indexOld++;
+				}
+			}
+			else {
+				indexOld += pixelSize;
+			}
+			if (j == width && i <= height && i >= 0) {
+				indexNew += newPad;
+			}
+		}
+		indexOld += oldPad;
+	}
+	// getting the box coordinates to stay within range
+	// proceed only if left_x <= right_x and bottom_y <= top_y
+	// create a new image cropped from the given image
+	int bits = pixelSize;
+	int pad = 0;
+	if (bits * (width - 0 + 1) % 4 != 0) {
+		pad = 4 - ((bits * (width - 0 + 1)) % 4);
+	}
+	int imageSize = (bits * (width - 0 + 1) + pad) *
+		(height - 0 + 1);
+	image = static_cast<BMP_Image*>(calloc(sizeof(BMP_Image), 1));
+	image->header.height = height - 0 + 1;
+	image->header.width = width - 0 + 1;
+	image->header.imagesize = imageSize;
+	image->header.size = imageSize + 54;
+	image->data = static_cast<unsigned char*>(calloc(imageSize, 1));
+	int count;
+	for (count = 0; count < imageSize; count++) {
+		(image->data)[count] = newData[count];
+	}
+	image->header.type = 19778;			// Magic identifier
+	image->header.reserved1 = image->header.reserved1;			// Not used
+	image->header.reserved2 = image->header.reserved2;			// Not used
+	image->header.offset = BMP_HEADER_SIZE;			// Offset to image data in bytes from beginning of file (54 bytes)
+	image->header.DIB_header_size = DIB_HEADER_SIZE;		// DIB Header size in bytes (40 bytes)
+	image->header.planes = 1;			// Number of color planes
+	image->header.bits = pixelSize;			// Bits per pixel
+	image->header.compression = 0;		// Compression type
+	image->header.xresolution = 2835;		// Pixels per meter
+	image->header.yresolution = 2835;		// Pixels per meter
+	image->header.ncolours = 0;			// Number of colors  
+	image->header.importantcolours = 0;		// Important colors
 }
 
 bmp::~bmp()

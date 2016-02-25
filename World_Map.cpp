@@ -2,19 +2,10 @@
 
 using namespace std;
 
-struct voxel {
-	bool isSet = false;
-	unsigned char r = 0;
-	unsigned char g = 0;
-	unsigned char b = 0;
-};
-
-
-
 void World_Map::allocate_memory() {
 	int x_i;
 	int y_i;
-	int z_i;
+	//int z_i;
 	
 	this -> map = (voxel ***) calloc(x, sizeof(voxel));
 	for (x_i = 0; x_i < this->x; x_i++) {

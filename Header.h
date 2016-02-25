@@ -32,8 +32,7 @@ class Species;
 
 
 using namespace std;
-
- struct BMP_Header {
+struct BMP_Header {
 	uint16_t type;			// Magic identifier
 	uint32_t size;			// File size in bytes
 	uint16_t reserved1;			// Not used
@@ -55,12 +54,26 @@ using namespace std;
 struct BMP_Image {
 	BMP_Header header;
 	unsigned char *data;
-} ;
+};
+
+
+struct voxel {
+	bool isSet = false;
+	unsigned char r = 0;
+	unsigned char g = 0;
+	unsigned char b = 0;
+};
+
+struct pixel {
+	unsigned char r = 0xff;
+	unsigned char g = 0xff;
+	unsigned char b = 0xff;
+};
 
 class bmp
 {
 public:
-	bmp(World_Map);
+	bmp(int width, int height);
 	~bmp();
 
 private:
@@ -78,32 +91,17 @@ private:
 
 	// Free memory in a given image
 	//
-	void Free_BMP_Image(BMP_Image *image);
-void bmp::Free_BMP_Image(BMP_Image * image)
-{
-}
-};
+	void Free_BMP_Image(BMP_Image* image);
 
 
 
 
-// Given a BMP_Image, create a new image that retains the image in the
-// box specified by left_x, right_x, bottom_y, top_y
-//
-BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x, int right_x,
-	int bottom_y, int top_y);
 
-struct voxel {
-	bool isSet = false;
-	unsigned char r = 0;
-	unsigned char g = 0;
-	unsigned char b = 0;
-};
-
-struct pixel {
-	unsigned char r = 0xff;
-	unsigned char g = 0xff;
-	unsigned char b = 0xff;
+	// Given a BMP_Image, create a new image that retains the image in the
+	// box specified by left_x, right_x, bottom_y, top_y
+	//
+	BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x, int right_x,
+		int bottom_y, int top_y);
 };
 
 class World_Map {
@@ -143,7 +141,6 @@ private:
 	pixel** image;
 public:
 	int * get_x();
-	void set_face_height(int height);
 	int * get_y();
 	int * get_z();
 	void set_x(int, int);

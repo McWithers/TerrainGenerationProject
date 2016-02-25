@@ -15,16 +15,12 @@ int main() {
 					Plot.set_point(i, j, k);
 					cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
 				}
-				
+
 			}
 		}
 	}
 
-
-
-
-
-
+	0;
 
 	return EXIT_SUCCESS;
 }
