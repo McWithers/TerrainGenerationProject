@@ -1,6 +1,5 @@
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include "Header.h"
+
 using namespace std;
 
 struct voxel {
@@ -10,29 +9,7 @@ struct voxel {
 	unsigned char b = 0;
 };
 
-class World_Map {
-private:
-	
-	int x;
-	int y;
-	int z;
-	
-public:
-	
-	voxel*** map;
-	void allocate_memory();
-	int get_x();
-	int get_y();
-	int get_z();
-	voxel *** get_map();
-	voxel get_point(int, int, int);
-	void set_x(int);
-	void set_y(int);
-	void set_z(int);
-	World_Map(int, int, int);
-	void set_point(int, int, int);
-	~World_Map();
-};
+
 
 void World_Map::allocate_memory() {
 	int x_i;
@@ -59,7 +36,9 @@ voxel World_Map::get_point(int c_x, int c_y, int c_z) {
 
 void World_Map::set_point(int n_x, int n_y, int n_z) {
 	voxel *** m = get_map();
-	m[n_x][n_y][n_z] = 1;
+	voxel newVoxel;
+	newVoxel.isSet = 1;
+	m[n_x][n_y][n_z] = newVoxel;
 }
 
 int World_Map::get_x() {
