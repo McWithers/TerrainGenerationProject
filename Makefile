@@ -16,11 +16,11 @@ CFLAGS	= -Wall -Wshadow -Werror -g -std=c++11
 
 Main: Main.o bmp.o First_Person.o Isometric_Render.o World_Map.o
 	$(CC) $(CFLAGS) Main.cpp bmp.cpp First_Person.cpp Isometric_Render.cpp World_Map.cpp -o Main
-
+	rm *.o
 ## rule to clean up object files and executable so that you can rebuild
 
-clean:	
-	rm -f Main.o bmp.o First_Person.o Isometric_Render.o World_Map.o Main
+##clean:	
+##	rm -f Main.o bmp.o First_Person.o Isometric_Render.o World_Map.o Main
 
 ## rule to compile .cpp to .o
 

@@ -1,5 +1,6 @@
 #include "Header.h"
 
+
 /* check whether a header is valid
  * assume that header has been read from fptr
  * the position of the indicator of fptr is not certain
