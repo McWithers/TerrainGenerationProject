@@ -58,16 +58,16 @@ struct BMP_Image {
 
 
 struct voxel {
-	bool isSet = false;
-	unsigned char r = 0;
-	unsigned char g = 0;
-	unsigned char b = 0;
+	bool isSet;
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
 };
 
 struct pixel {
-	unsigned char r = 0xff;
-	unsigned char g = 0xff;
-	unsigned char b = 0xff;
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
 };
 
 class bmp

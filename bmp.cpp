@@ -63,12 +63,12 @@ int bmp::Is_BMP_Header_Valid(BMP_Header* header, FILE *fptr) {
 	  pad = 4 - ((bits * header->width) % 4);
   }
   int imageSize = (header->width * bits +pad)*header->height;
-  if (header->imagesize != imageSize) {
+  if ((int)header->imagesize != imageSize) {
 	  fprintf(stderr, "Input file not in expected format\n");
 	  return FALSE;
   }
   
-  if (header->size != imageSize + 54) {
+  if ((int)header->size != imageSize + 54) {
 	  fprintf(stderr, "Input file not in expected format\n");
 	  return FALSE;
   }

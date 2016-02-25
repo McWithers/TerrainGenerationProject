@@ -20,7 +20,5 @@ int main() {
 		}
 	}
 
-	0;
-
 	return EXIT_SUCCESS;
 }
