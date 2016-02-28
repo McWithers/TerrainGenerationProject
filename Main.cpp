@@ -8,6 +8,7 @@ int main() {
 	int i;
 	int j;
 	int k;
+    //change made
 	for (i = 0; i < Plot.get_x(); i++) {
 		for (j = 0; j < Plot.get_y(); j++) {
 			for (k = 0; k < Plot.get_z(); k++) {
