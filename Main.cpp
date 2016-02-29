@@ -20,6 +20,6 @@ int main() {
 			}
 		}
 	}
-
+	Plot.~World_Map();
 	return EXIT_SUCCESS;
 }

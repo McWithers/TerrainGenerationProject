@@ -123,8 +123,8 @@ public:
 	void set_x(int);
 	void set_y(int);
 	void set_z(int);
-	World_Map(int x, int y, int z);
 	void set_point(int x, int y , int z);
+	World_Map(int x, int y, int z);
 	~World_Map();
 };
 
@@ -139,6 +139,7 @@ private:
 	int z_u;
 	int face_height;
 	pixel** image;
+	World_Map map;
 public:
 	int * get_x();
 	int * get_y();
@@ -148,8 +149,10 @@ public:
 	void set_z(int, int);
 	void set_face_height(int);
 	int get_face_height();
+	void recursive_place(int, int, int);
 	void create_image(World_Map);
-	void place_cube(World_Map, int, int, int);
+	void place_cube(int, int, int);
+	Isometric_Render(World_Map map, int xl, int xu, int yl, int yu, int zl, int zu);
 };
 
 #endif // NeatZombies header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~

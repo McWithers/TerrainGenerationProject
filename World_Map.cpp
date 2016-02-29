@@ -27,7 +27,7 @@ voxel World_Map::get_point(int c_x, int c_y, int c_z) {
 }
 
 void World_Map::set_point(int n_x, int n_y, int n_z) {
-	voxel *** m = get_map();
+	voxel *** m = this->map;
 	m[n_x][n_y][n_z].isSet=1;
 }
 
