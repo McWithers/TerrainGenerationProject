@@ -69,7 +69,7 @@ void Isometric_Render::set_z(int low, int up) {
 	this->z_u = up;
 }
 
-Isometric_Render::Isometric_Render(World_Map map, int xl, int xu, int yl, int yu, int zl, int zu) {
+Isometric_Render::Isometric_Render(World_Map the_map, int xl, int xu, int yl, int yu, int zl, int zu) {
 	set_x(xl, xu);
 	set_y(yl, yu);
 	set_z(zl, zu);

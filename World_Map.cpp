@@ -69,6 +69,8 @@ World_Map::World_Map(int xBound, int yBound, int zBound) {
 
 }
 
+World_Map::World_Map() {}
+
 World_Map::~World_Map() {
 	int i;
 	int j;

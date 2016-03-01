@@ -121,26 +121,30 @@ BMP_Image *bmp::Read_BMP_Image(FILE* fptr) {
  * return TRUE if write is successful
  * FALSE otherwise
  */
-int bmp::Write_BMP_Image(FILE* fptr, BMP_Image* image) 
+void bmp::Write_BMP_Image(BMP_Image* image) 
 {
    // go to the beginning of the file
+	FILE * fptr = fopen(this->filename,"w+");
 	fseek(fptr, 0, SEEK_SET);
 	if (!fwrite(&image->header, sizeof(BMP_Header), 1, fptr)) {
 		fprintf(stderr, "Error writing to output file\n");
-		return FALSE;
+		fclose(fptr);
+		return; 
 	}
    // write header
 	if (!fwrite(image->data, image->header.imagesize, 1, fptr)) {
 		fprintf(stderr, "Error writing to output file\n");
-		return FALSE;
+		fclose(fptr);
+		return;
 	}
    // write image data
-   return TRUE;
+	fclose(fptr);
 }
 
-bmp::bmp(int width, int height)
+bmp::bmp(int width, int height, char* fname)
 {
 	BMP_Image *image;
+	this->filename = fname;
 	int pixelSize = 24 / 8;
 	int i;
 	int j;
@@ -199,8 +203,8 @@ bmp::bmp(int width, int height)
 		(image->data)[count] = newData[count];
 	}
 	image->header.type = 19778;			// Magic identifier
-	image->header.reserved1 = image->header.reserved1;			// Not used
-	image->header.reserved2 = image->header.reserved2;			// Not used
+	image->header.reserved1 = 0;			// Not used
+	image->header.reserved2 = 0;			// Not used
 	image->header.offset = BMP_HEADER_SIZE;			// Offset to image data in bytes from beginning of file (54 bytes)
 	image->header.DIB_header_size = DIB_HEADER_SIZE;		// DIB Header size in bytes (40 bytes)
 	image->header.planes = 1;			// Number of color planes

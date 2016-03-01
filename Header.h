@@ -73,10 +73,12 @@ struct pixel {
 class bmp
 {
 public:
-	bmp(int width, int height);
+	bmp(int width, int height, char*);
+	bmp();
 	~bmp();
 
 private:
+	char* filename;
 	// Read BMP_Image from a given file
 	//
 	BMP_Image *Read_BMP_Image(FILE *fptr);
@@ -87,7 +89,7 @@ private:
 
 	// Write BMP_Image to a given file
 	//
-	int Write_BMP_Image(FILE *fptr, BMP_Image *image);
+	void Write_BMP_Image(BMP_Image *image);
 
 	// Free memory in a given image
 	//
@@ -125,6 +127,7 @@ public:
 	void set_z(int);
 	void set_point(int x, int y , int z);
 	World_Map(int x, int y, int z);
+	World_Map();
 	~World_Map();
 };
 
@@ -153,6 +156,7 @@ public:
 	void create_image(World_Map);
 	void place_cube(int, int, int);
 	Isometric_Render(World_Map map, int xl, int xu, int yl, int yu, int zl, int zu);
+	Isometric_Render();
 };
 
 #endif // NeatZombies header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~

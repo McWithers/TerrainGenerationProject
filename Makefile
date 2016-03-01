@@ -9,7 +9,7 @@ CC	= g++
 
 ## Define flags
 
-CFLAGS	= -Wall -Wshadow -Werror -g -std=c++11
+CFLAGS	= -Wall -Wshadow -Werror -g -std=gnu++0x#-std=c++11
 
 ## Build rule to build executable, by default, Main is build since it 
 ## is the label of the first rule
