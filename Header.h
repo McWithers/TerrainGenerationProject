@@ -1,7 +1,7 @@
 //Header Guard~~~~~~~~~~~~~~~~~~~~~~~~~
 #ifndef Header_NEAT_H_Included_
 #define Header_NEAT_H_Included_
-
+#define _CRT_SECURE_NO_WARNINGS
 
 //Forward Declared Dependencies~~~~~~~~~~~~~~~~~~~~~~~~~
 class First_Person;
@@ -72,10 +72,13 @@ struct pixel {
 
 class bmp
 {
+private:
+	BMP_Image *the_image;
 public:
 	bmp(int width, int height, char*);
 	bmp();
 	~bmp();
+	void save();
 
 private:
 	char* filename;
@@ -89,7 +92,7 @@ private:
 
 	// Write BMP_Image to a given file
 	//
-	void Write_BMP_Image(BMP_Image *image);
+	void Write_BMP_Image();
 
 	// Free memory in a given image
 	//
@@ -115,13 +118,13 @@ private:
 
 public:
 
-	voxel*** map;
+	voxel**** map;
 	void allocate_memory();
 	int get_x();
 	int get_y();
 	int get_z();
-	voxel *** get_map();
-	voxel get_point(int x, int y, int z);
+	struct voxel **** get_map();
+	struct voxel * get_point(int x, int y, int z);
 	void set_x(int);
 	void set_y(int);
 	void set_z(int);

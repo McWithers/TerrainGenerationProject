@@ -121,9 +121,10 @@ BMP_Image *bmp::Read_BMP_Image(FILE* fptr) {
  * return TRUE if write is successful
  * FALSE otherwise
  */
-void bmp::Write_BMP_Image(BMP_Image* image) 
+void bmp::Write_BMP_Image() 
 {
    // go to the beginning of the file
+	BMP_Image* image = this->the_image;
 	FILE * fptr = fopen(this->filename,"w+");
 	fseek(fptr, 0, SEEK_SET);
 	if (!fwrite(&image->header, sizeof(BMP_Header), 1, fptr)) {
@@ -214,6 +215,7 @@ bmp::bmp(int width, int height, char* fname)
 	image->header.yresolution = 2835;		// Pixels per meter
 	image->header.ncolours = 0;			// Number of colors  
 	image->header.importantcolours = 0;		// Important colors
+	this->the_image = image;
 }
 
 bmp::~bmp()
@@ -325,4 +327,7 @@ BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x,
 	free(newData);
 	Free_BMP_Image(image);
 	return t_image;
+}
+void bmp::save() {
+	Write_BMP_Image();
 }

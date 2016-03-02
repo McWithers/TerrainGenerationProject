@@ -5,30 +5,51 @@ using namespace std;
 void World_Map::allocate_memory() {
 	int x_i;
 	int y_i;
-	//int z_i;
-	cout << "done!" << endl;
-
-	this -> map = (voxel ***) calloc(x, sizeof(voxel));
+	int z_i;//*/
+	//this->map = new voxel[this->x][this->y][this->z];
+	this->map = (voxel****)malloc(sizeof(voxel***)*this->z);
+	for (x_i = 0; x_i < this->x; x_i++) {
+		voxel *** v_yz = (voxel***)malloc(sizeof(voxel**)*this->y);
+		for (y_i = 0; y_i < this->y; y_i++) {
+			voxel ** v_z = (voxel**) malloc(sizeof(voxel*)*this->z);
+			for (z_i = 0; z_i < this->z; z_i++) {
+				voxel *v = (voxel*) malloc(1*sizeof(voxel));
+				v->isSet = 1;
+				v->r = x_i % 255;
+				v->g = y_i % 255;
+				v->b = z_i % 255;
+				v_z[z_i] = v;
+//				printf("no\n");
+				//this->map[x_i][y_i][z_i] = new voxel;
+			}
+			v_yz[y_i] = v_z;
+		}
+		this->map[x_i] = v_yz;
+	}//*/
+	/*this -> map = (voxel ***) calloc(x, sizeof(voxel));
 	for (x_i = 0; x_i < this->x; x_i++) {
 		map[x_i] = (voxel **) calloc(y, sizeof(voxel));
-		for (y_i = 0; y_i < this->y; y_i++) {
-			map[x_i][y_i] = (voxel *) calloc(this->z, sizeof(voxel));
+		for (x_i = 0; x_i < this->x; x_i++) {
+		map[x_i][y_i] = (voxel *) calloc(this->z, sizeof(voxel));
 		}
-	}
+	}//*/
+	cout << "done allocating!" << endl;
+	cout << "test: " << (int)this->map[3][3][3]->g << endl;
+
 }
 
-voxel *** World_Map::get_map() {
+voxel **** World_Map::get_map() {
 	return this->map;
 }
 
-voxel World_Map::get_point(int c_x, int c_y, int c_z) {
-	voxel *** m = get_map();
+voxel * World_Map::get_point(int c_x, int c_y, int c_z) {
+	voxel **** m = get_map();
 	return m[c_x][c_y][c_z];
 }
 
 void World_Map::set_point(int n_x, int n_y, int n_z) {
-	voxel *** m = this->map;
-	m[n_x][n_y][n_z].isSet=1;
+	voxel **** m = this->map;
+	m[n_x][n_y][n_z]->isSet=1;
 }
 
 int World_Map::get_x() {
@@ -72,13 +93,18 @@ World_Map::World_Map(int xBound, int yBound, int zBound) {
 World_Map::World_Map() {}
 
 World_Map::~World_Map() {
-	int i;
-	int j;
-	for (i = 0; i < this->x; i++) {
-		for (j = 0; j < this->y; j++) {
-			free(map[i][j]);
+	int x_i;
+	int y_i;
+	int z_i;
+
+	for (x_i = 0; x_i < this->x; x_i++) {
+		for (y_i = 0; y_i < this->y; y_i++) {
+			for (z_i = 0; z_i < this->z; z_i++) {
+				free(map[x_i][y_i][z_i]);
+			}
+			free(map[x_i][y_i]);
 		}
-		free(map[i]);
+		free(map[x_i]);
 	}
 	free(map);
 }
