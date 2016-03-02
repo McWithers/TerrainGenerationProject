@@ -11,16 +11,14 @@ void World_Map::allocate_memory() {
 	for (x_i = 0; x_i < this->x; x_i++) {
 		voxel *** v_yz = (voxel***)malloc(sizeof(voxel**)*this->y);
 		for (y_i = 0; y_i < this->y; y_i++) {
-			voxel ** v_z = (voxel**) malloc(sizeof(voxel*)*this->z);
+			voxel ** v_z = (voxel**)malloc(sizeof(voxel*)*this->z);
 			for (z_i = 0; z_i < this->z; z_i++) {
-				voxel *v = (voxel*) malloc(1*sizeof(voxel));
+				voxel *v = (voxel*)malloc(sizeof(voxel) * 1);
 				v->isSet = 1;
 				v->r = x_i % 255;
 				v->g = y_i % 255;
 				v->b = z_i % 255;
 				v_z[z_i] = v;
-//				printf("no\n");
-				//this->map[x_i][y_i][z_i] = new voxel;
 			}
 			v_yz[y_i] = v_z;
 		}

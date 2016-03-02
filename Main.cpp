@@ -4,12 +4,12 @@
 #include "Header.h"
 
 int main() {
-	World_Map Plot(5,5,5);
+	World_Map Plot(50,50,50);
 	int i = 0;
 	int j = 0;
 	int k = 0;
     //change made
-	bmp image(50,60,(char*)"airplane.bmp");
+	bmp image(10,10,(char*)"air.bmp");
 	image.save();
 	printf("Saved!\n");
 	int x_max = Plot.get_x();
@@ -27,6 +27,6 @@ int main() {
 		}
 	}
 
-	Plot.~World_Map();
+	//Plot.~World_Map();
 	return EXIT_SUCCESS;
 }

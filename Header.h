@@ -73,7 +73,8 @@ struct pixel {
 class bmp
 {
 private:
-	BMP_Image *the_image;
+	BMP_Image* the_image;
+	BMP_Image* example;
 public:
 	bmp(int width, int height, char*);
 	bmp();
@@ -84,11 +85,12 @@ private:
 	char* filename;
 	// Read BMP_Image from a given file
 	//
-	BMP_Image *Read_BMP_Image(FILE *fptr);
+	BMP_Image *Read_BMP_Image();
+	BMP_Image *Read_BMP_Image(char*);
 
 	// Check the validity of the header with the file from which the header is read
 	//
-	int Is_BMP_Header_Valid(BMP_Header *bmp_hdr, FILE *fptr);
+	int Is_BMP_Header_Valid(BMP_Header *bmp_hdr);
 
 	// Write BMP_Image to a given file
 	//

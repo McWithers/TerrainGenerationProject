@@ -9,9 +9,10 @@
  * note that the check is only for this exercise/assignment
  * in general, the format is more complicated
  */
-int bmp::Is_BMP_Header_Valid(BMP_Header* header, FILE *fptr) {
+int bmp::Is_BMP_Header_Valid(BMP_Header* header) {
   // Make sure this is a BMP file
   if (header->type != 0x4d42) {
+	  printf("type\n");
      return FALSE;
   }
   // skip the two unused reserved fields
@@ -20,39 +21,46 @@ int bmp::Is_BMP_Header_Valid(BMP_Header* header, FILE *fptr) {
   // essentially the size of the BMP header
   // BMP_HEADER_SIZE for this exercise/assignment
   if (header->offset != BMP_HEADER_SIZE) {
-     return FALSE;
+	  printf("offset\n");
+	  return FALSE;
   }
       
   // check the DIB header size == DIB_HEADER_SIZE
   // For this exercise/assignment
   if (header->DIB_header_size != DIB_HEADER_SIZE) {
-     return FALSE;
+	  printf("DIB_header_size\n");
+	  return FALSE;
   }
 
   // Make sure there is only one image plane
   if (header->planes != 1) {
-    return FALSE;
+	  printf("planes\n");
+	  return FALSE;
   }
   // Make sure there is no compression
   if (header->compression != 0) {
-    return FALSE;
+	  printf("compression\n");
+	  return FALSE;
   }
 
   // skip the test for xresolution, yresolution
 
   // ncolours and importantcolours should be 0
   if (header->ncolours != 0) {
-    return FALSE;
+	  printf("ncolours\n");
+	  return FALSE;
   }
   if (header->importantcolours != 0) {
-    return FALSE;
+	  printf("importantcolours\n");
+	  return FALSE;
   }
   
   // Make sure we are getting 24 bits per pixel
   // or 16 bits per pixel
   // only for this assignment
   if (header->bits != 24 && header->bits != 16) {
-    return FALSE;
+	  printf("bits\n");
+	  return FALSE;
   }
 
   // fill in extra to check for file size, image size
@@ -65,12 +73,12 @@ int bmp::Is_BMP_Header_Valid(BMP_Header* header, FILE *fptr) {
   }
   int imageSize = (header->width * bits +pad)*header->height;
   if ((int)header->imagesize != imageSize) {
-	  fprintf(stderr, "Input file not in expected format\n");
+	  fprintf(stderr, "Input file not in expected format: Data\n");
 	  return FALSE;
   }
   
   if ((int)header->size != imageSize + 54) {
-	  fprintf(stderr, "Input file not in expected format\n");
+	  fprintf(stderr, "Input file not in expected format: Whole filesize\n");
 	  return FALSE;
   }
   return TRUE;
@@ -84,12 +92,13 @@ int bmp::Is_BMP_Header_Valid(BMP_Header* header, FILE *fptr) {
  * return NULL
  * Any error messages should be printed to stderr
  */
-BMP_Image *bmp::Read_BMP_Image(FILE* fptr) {
-	// go to the beginning of the file
+BMP_Image *bmp::Read_BMP_Image() {
+  // go to the beginning of the file
+	FILE* fptr = fopen("airplane.bmp", "r");
 	fseek(fptr, 0, SEEK_SET);
-	BMP_Image *bmp_image = NULL;
-	//Allocate memory for BMP_Image*;
-	bmp_image = static_cast<BMP_Image*>(calloc(sizeof(BMP_Image), 1));
+   BMP_Image *bmp_image = NULL;
+  //Allocate memory for BMP_Image*;
+	bmp_image = (BMP_Image*)calloc(sizeof(BMP_Image), 1);
 	if (bmp_image == NULL) {
 		fprintf(stderr, "Error allocating memory\n");
 		return NULL;
@@ -101,18 +110,91 @@ BMP_Image *bmp::Read_BMP_Image(FILE* fptr) {
 		return NULL;
 	}
 	// if read successful, check validity of header
-	if (!Is_BMP_Header_Valid(&(bmp_image->header), fptr)) {
+	if (!Is_BMP_Header_Valid(&(bmp_image->header))) {
 		fprintf(stderr, "Input file not in expected format\n");
 		return NULL;
 	}
 	// Allocate memory for image data
-	bmp_image->data = static_cast<unsigned char*>(calloc(bmp_image->header.imagesize, 1));
+	bmp_image->data = (unsigned char *)calloc(bmp_image->header.imagesize, 1);
+	if (bmp_image->data == NULL) {
+		fprintf(stderr, "Error allocating memory\n");
+		return NULL;
+	}
+   // read in the image data
+	fread(bmp_image->data, bmp_image->header.imagesize, 1, fptr);
+	return bmp_image;
+}
+
+
+BMP_Image *bmp::Read_BMP_Image(char * name) {
+	// go to the beginning of the file
+	FILE* fptr = fopen(name, "r");
+	fseek(fptr, 0, SEEK_SET);
+	BMP_Image *bmp_image = NULL;
+	//Allocate memory for BMP_Image*;
+	bmp_image = (BMP_Image*)calloc(sizeof(BMP_Image), 1);
+	if (bmp_image == NULL) {
+		fprintf(stderr, "Error allocating memory\n");
+		return NULL;
+	}
+	//Read the first 54 bytes of the source into the header
+	fread(bmp_image, sizeof(BMP_Header), 1, fptr);
+	if (&(bmp_image->header) == NULL) {
+		fprintf(stderr, "Can't read image from file\n");
+		return NULL;
+	}
+	// if read successful, check validity of header
+	if (!Is_BMP_Header_Valid(&(bmp_image->header))) {
+		fprintf(stderr, "Input file not in expected format\n");
+		return NULL;
+	}
+	// Allocate memory for image data
+	bmp_image->data = (unsigned char *)calloc(bmp_image->header.imagesize, 1);
 	if (bmp_image->data == NULL) {
 		fprintf(stderr, "Error allocating memory\n");
 		return NULL;
 	}
 	// read in the image data
 	fread(bmp_image->data, bmp_image->header.imagesize, 1, fptr);
+	return bmp_image;
+}
+
+/*
+BMP_Image *bmp::Read_BMP_Image() {
+	// go to the beginning of the file
+	char* filename = this->filename;
+	FILE* fptr = fopen(filename, "r");
+	fseek(fptr, 0, SEEK_SET);
+	BMP_Image *bmp_image = NULL;
+	//Allocate memory for BMP_Image*;
+	bmp_image = (BMP_Image*)calloc(sizeof(BMP_Image), 1);
+	if (bmp_image == NULL) {
+		fprintf(stderr, "Error allocating memory\n");
+		return NULL;
+	}
+	//Read the first 54 bytes of the source into the header
+	fread(bmp_image, sizeof(BMP_Header), 1, fptr);
+	if (&(bmp_image->header) == NULL) {
+		fprintf(stderr, "Can't read image from file\n");
+		fclose(fptr);
+		return NULL;
+	}
+	// if read successful, check validity of header
+	if (!Is_BMP_Header_Valid(&(bmp_image->header))) {
+		fclose(fptr);
+		fprintf(stderr, "Input file not in expected format\n");
+		return NULL;
+	}
+	// Allocate memory for image data
+	bmp_image->data = (unsigned char*)(calloc(bmp_image->header.imagesize, 1));
+	if (bmp_image->data == NULL) {
+		fclose(fptr);
+		fprintf(stderr, "Error allocating memory\n");
+		return NULL;
+	}
+	// read in the image data
+	fread(bmp_image->data, bmp_image->header.imagesize, 1, fptr);
+	fclose(fptr);
 	return bmp_image;
 }
 
@@ -152,70 +234,57 @@ bmp::bmp(int width, int height, char* fname)
 	int k;
 	int newWidth = width;
 	int imageWidth = width;
-	int newPad = 0;
-	int oldPad = 0;
+	int pad = 0;
 	if ((pixelSize * newWidth) % 4 != 0) {
-		newPad = 4 - ((pixelSize * newWidth) % 4);
-	}
-	if ((pixelSize * imageWidth) % 4 != 0) {
-		oldPad = 4 - ((pixelSize * imageWidth) % 4);
+		pad = 4 - ((pixelSize * newWidth) % 4);
 	}
 	int newHeight = height;
 	int imageHeight = height;
-	unsigned char *newData = static_cast<unsigned char*>(calloc(pixelSize*(newWidth + newPad), newHeight));
-	int indexOld = 0;
+	int imageSize = (pixelSize*newWidth + pad)*newHeight;
+	unsigned char* newData = (unsigned char*)malloc(imageSize);
+	//printf("%d \n",pixelSize*(newWidth*newHeight));
 	int indexNew = 0;
 	for (i = 0; i < imageHeight; i++) {
 		for (j = 0; j < imageWidth; j++) {
-			if (j >= 0 && j <= width && i >= 0 && i <= height) {
-				for (k = 0; k < pixelSize; k++) {
-					newData[indexNew] = 0;
-					indexNew++;
-					indexOld++;
-				}
-			}
-			else {
-				indexOld += pixelSize;
-			}
-			if (j == width && i <= height && i >= 0) {
-				indexNew += newPad;
+			for (k = 0; k < pixelSize; k++) {
+				newData[indexNew] = '5';
+				indexNew++;
 			}
 		}
-		indexOld += oldPad;
+		indexNew += pad;
 	}
+	//this->the_image->data[indexNew] = 0;
 	// getting the box coordinates to stay within range
 	// proceed only if left_x <= right_x and bottom_y <= top_y
 	// create a new image cropped from the given image
 	int bits = pixelSize;
-	int pad = 0;
-	if (bits * (width - 0 + 1) % 4 != 0) {
-		pad = 4 - ((bits * (width - 0 + 1)) % 4);
+	this->example = Read_BMP_Image("airplane.bmp");
+	this->the_image = (BMP_Image*)malloc(sizeof(BMP_Image) * 1);
+	this->the_image->header.height = height;
+	this->the_image->header.width = width;
+	this->the_image->header.imagesize = imageSize;
+	this->the_image->header.size = imageSize + 54;
+	this->the_image->data = newData;
+	this->the_image->header.type = 19778;			// Magic identifier
+	this->the_image->header.reserved1 = 0;			// Not used
+	this->the_image->header.reserved2 = 0;			// Not used
+	this->the_image->header.offset = BMP_HEADER_SIZE;			// Offset to image data in bytes from beginning of file (54 bytes)
+	this->the_image->header.DIB_header_size = DIB_HEADER_SIZE;		// DIB Header size in bytes (40 bytes)
+	this->the_image->header.planes = 1;			// Number of color planes
+	this->the_image->header.bits = pixelSize*8;			// Bits per pixel
+	this->the_image->header.compression = 0;		// Compression type
+	this->the_image->header.xresolution = 2835;		// Pixels per meter
+	this->the_image->header.yresolution = 2835;		// Pixels per meter
+	this->the_image->header.ncolours = 0;			// Number of colors  
+	this->the_image->header.importantcolours = 0;		// Important colors
+
+	if (!this->Is_BMP_Header_Valid(&this->the_image->header)) {
+		printf("header was wrong\n");
 	}
-	int imageSize = (bits * (width - 0 + 1) + pad) *
-		(height - 0 + 1);
-	image = static_cast<BMP_Image*>(calloc(sizeof(BMP_Image), 1));
-	image->header.height = height - 0 + 1;
-	image->header.width = width - 0 + 1;
-	image->header.imagesize = imageSize;
-	image->header.size = imageSize + 54;
-	image->data = static_cast<unsigned char*>(calloc(imageSize, 1));
-	int count;
-	for (count = 0; count < imageSize; count++) {
-		(image->data)[count] = newData[count];
-	}
-	image->header.type = 19778;			// Magic identifier
-	image->header.reserved1 = 0;			// Not used
-	image->header.reserved2 = 0;			// Not used
-	image->header.offset = BMP_HEADER_SIZE;			// Offset to image data in bytes from beginning of file (54 bytes)
-	image->header.DIB_header_size = DIB_HEADER_SIZE;		// DIB Header size in bytes (40 bytes)
-	image->header.planes = 1;			// Number of color planes
-	image->header.bits = pixelSize;			// Bits per pixel
-	image->header.compression = 0;		// Compression type
-	image->header.xresolution = 2835;		// Pixels per meter
-	image->header.yresolution = 2835;		// Pixels per meter
-	image->header.ncolours = 0;			// Number of colors  
-	image->header.importantcolours = 0;		// Important colors
-	this->the_image = image;
+}
+
+bmp::bmp()
+{
 }
 
 bmp::~bmp()
@@ -225,7 +294,7 @@ bmp::~bmp()
 /* The input argument is the BMP_Image pointer. The function frees memory of 
  * the BMP_Image.
  */
-void Free_BMP_Image(BMP_Image* image) {
+void bmp::Free_BMP_Image(BMP_Image* image) {
 	if (image == NULL) {
 		return;
 	}
@@ -236,8 +305,8 @@ void Free_BMP_Image(BMP_Image* image) {
 // Given a valid BMP_Image, create a new image that retains the image in the
 // box specified by left_x, right_x, bottom_y, top_y
 //
-
-BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x,
+/*
+BMP_Image* bmp::Crop_BMP_Image(BMP_Image *image, int left_x,
 	int right_x, int bottom_y,
 	int top_y)
 {
@@ -270,7 +339,7 @@ BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x,
 		oldPad = 4 - ((pixelSize * imageWidth) % 4);
 	}
 	int newHeight = top_y - bottom_y + 1;
-	unsigned char *newData = static_cast<unsigned char*>(calloc(pixelSize*(newWidth + newPad), newHeight));
+	unsigned char *newData = (unsigned char*)(malloc(pixelSize*(newWidth + newPad) * newHeight));
 	int indexOld = 0;
 	int indexNew = 0;
 	for (i = 0; i < imageHeight; i++) {
@@ -302,12 +371,12 @@ BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x,
 	int imageSize = (bits * (right_x - left_x + 1) + pad) *
 		(top_y - bottom_y + 1);	
 	BMP_Image *t_image = NULL;
-	t_image = static_cast<BMP_Image*>(calloc(sizeof(BMP_Image), 1));
+	t_image = (BMP_Image*)(malloc(sizeof(BMP_Image) * 1));
 	t_image->header.height = top_y - bottom_y + 1;
 	t_image->header.width = right_x - left_x + 1;
 	t_image->header.imagesize = imageSize;
 	t_image->header.size = imageSize + 54;
-	t_image->data = static_cast<unsigned char*>(calloc(imageSize, 1));
+	t_image->data = (unsigned char *)malloc(imageSize * 1);
 	int count;
 	for (count = 0; count < imageSize; count++) {
 		(t_image->data)[count] = newData[count];
@@ -328,6 +397,7 @@ BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x,
 	Free_BMP_Image(image);
 	return t_image;
 }
+//*/
 void bmp::save() {
 	Write_BMP_Image();
 }
