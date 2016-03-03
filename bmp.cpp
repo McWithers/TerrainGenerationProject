@@ -94,7 +94,7 @@ int bmp::Is_BMP_Header_Valid(BMP_Header* header) {
  */
 BMP_Image *bmp::Read_BMP_Image() {
   // go to the beginning of the file
-	FILE* fptr = fopen("airplane.bmp", "r");
+	FILE* fptr = fopen("airplane.bmp", "rb");
 	fseek(fptr, 0, SEEK_SET);
    BMP_Image *bmp_image = NULL;
   //Allocate memory for BMP_Image*;
@@ -125,10 +125,25 @@ BMP_Image *bmp::Read_BMP_Image() {
 	return bmp_image;
 }
 
+/*BMPImage* read_bmp(FILE* fp, char** error){
+	BMPImage* bmp_image = malloc(sizeof(BMPImage));
+	fread(bmp_image,sizeof(BMPHeader),1,fp);
+	bool test = check_bmp_header(&(bmp_image->header),fp);
+	if(test == false){
+		*error = "The BMP Image is corrupted\n";
+		free(bmp_image);
+ 		return NULL;
+	}
+	*error = NULL;
+	bmp_image->data = malloc(bmp_image->header.image_size_bytes);//sizeof(char)*(length-pos));
+	fread(bmp_image->data,bmp_image->header.image_size_bytes,1,fp);
+	return bmp_image;
+}*/
+
 
 BMP_Image *bmp::Read_BMP_Image(char * name) {
 	// go to the beginning of the file
-	FILE* fptr = fopen(name, "r");
+	FILE* fptr = fopen(name, "rb");
 	fseek(fptr, 0, SEEK_SET);
 	BMP_Image *bmp_image = NULL;
 	//Allocate memory for BMP_Image*;
@@ -196,7 +211,7 @@ BMP_Image *bmp::Read_BMP_Image() {
 	fread(bmp_image->data, bmp_image->header.imagesize, 1, fptr);
 	fclose(fptr);
 	return bmp_image;
-}
+}*/
 
 /* The input arguments are the destination file pointer, BMP_Image *image.
  * The function write the header and image data into the destination file.
@@ -226,7 +241,6 @@ void bmp::Write_BMP_Image()
 
 bmp::bmp(int width, int height, char* fname)
 {
-	BMP_Image *image;
 	this->filename = fname;
 	int pixelSize = 24 / 8;
 	int i;
@@ -257,9 +271,9 @@ bmp::bmp(int width, int height, char* fname)
 	// getting the box coordinates to stay within range
 	// proceed only if left_x <= right_x and bottom_y <= top_y
 	// create a new image cropped from the given image
-	int bits = pixelSize;
-	this->example = Read_BMP_Image("airplane.bmp");
-	this->the_image = (BMP_Image*)malloc(sizeof(BMP_Image) * 1);
+	//int bits = pixelSize;
+	this->example = Read_BMP_Image((char*)"airplane.bmp");
+	this->the_image = (BMP_Image*)malloc(sizeof(BMP_Image) * 1); 
 	this->the_image->header.height = height;
 	this->the_image->header.width = width;
 	this->the_image->header.imagesize = imageSize;
