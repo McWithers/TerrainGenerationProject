@@ -64,8 +64,10 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 }
 
 int* Isometric_Render::find_xy(int x, int y, int z) {
-	int * x_y = (int *)malloc(sizeof(4) * 2);
-		return x_y;
+	int x_y[2];
+	x_y[0] = 3;
+	x_y[1] = 2;
+	return x_y;
 }
 
 void Isometric_Render::set_face_height(int height) {

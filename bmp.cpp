@@ -54,7 +54,10 @@ int bmp::Is_BMP_Header_Valid(BMP_Header* header) {
 	  printf("importantcolours\n");
 	  return FALSE;
   }
-  
+  if ((header->width * 3 * header->height + 2 * header->height) != (header->imagesize)) {
+	  printf("imagesize");
+	  return FALSE;
+  }
   // Make sure we are getting 24 bits per pixel
   // or 16 bits per pixel
   // only for this assignment
