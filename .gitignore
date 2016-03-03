@@ -49,3 +49,4 @@ Temporary Items
 #not needed files
 *.swp
 *.o
+Makefile
