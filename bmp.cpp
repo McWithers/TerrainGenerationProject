@@ -139,7 +139,9 @@ BMP_Image *bmp::Read_BMP_Image() {
 	fread(bmp_image->data,bmp_image->header.image_size_bytes,1,fp);
 	return bmp_image;
 }*/
-
+//if ((bmp_header->bits_per_pixel == 24) && ((bmp_header->width_px * 3 * bmp_header->height_px + 2 * bmp_header->height_px) != bmp_header    ->image_size_bytes)){
+//	return false;
+//}
 
 BMP_Image *bmp::Read_BMP_Image(char * name) {
 	// go to the beginning of the file
