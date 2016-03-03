@@ -18,7 +18,47 @@ void Isometric_Render::recursive_place(int curr_x, int curr_y, int curr_z) {
 	}
 }
 
+void Isometric_Render::draw_line(int *x, int *y) {
+
+
+
+}
+
+
 void Isometric_Render::place_cube(int x, int y, int z) {
+	int * xy = find_xy(x, y, z);
+	int * point_start;
+	int * point_end_r;
+	int * point_end_l;
+	int * point_bottom;
+	int h = this->get_face_height();
+	int h_root = (h * sqrt(3)) / 2;
+	int h_half = h / 2;
+	for (int i = 0; i < 2; i++) {
+		point_start[i] = xy[i];
+	}
+	point_bottom[0] = xy[0];
+	point_bottom[1] = xy[1] - h;
+	draw_line(point_start, point_bottom);
+	point_end_r[0] = xy[0] + h_root;
+	point_end_r[1] = xy[1] + h_half;
+	point_end_l[0] = -point_end_r[0];
+	point_end_l[1] = point_end_r[1];
+	draw_line(point_start, point_end_r);
+	draw_line(point_start, point_end_l);
+	point_start[1] = point_start[1] + h;
+	draw_line(point_start, point_end_r);
+	draw_line(point_start, point_end_l);
+	point_bottom[0] = point_end_r[0];
+	point_bottom[1] = point_end_r[1] - h;
+	draw_line(point_bottom, point_end_r);
+	point_end_r[0] = xy[0];
+	point_end_r[1] = xy[1] - h;
+	draw_line(point_end_r, point_bottom);
+	point_bottom[0] = point_end_l[0];
+	point_bottom[1] = point_end_l[1] - h;
+	draw_line(point_bottom, point_end_l);
+	draw_line(point_end_r, point_bottom);
 
 
 }
