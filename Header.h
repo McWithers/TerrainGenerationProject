@@ -152,6 +152,7 @@ public:
 	int * get_x();
 	int * get_y();
 	int * get_z();
+	int * find_xy(int, int, int);
 	void set_x(int, int);
 	void set_y(int, int);
 	void set_z(int, int);

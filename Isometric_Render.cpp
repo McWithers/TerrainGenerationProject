@@ -23,6 +23,10 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 
 }
 
+int* Isometric_Render::find_xy(int x, int y, int z) {
+	int * x_y = (int *)malloc(sizeof(4) * 2);
+		return x_y;
+}
 
 void Isometric_Render::set_face_height(int height) {
 	this->face_height = height;
@@ -75,3 +79,5 @@ Isometric_Render::Isometric_Render(World_Map the_map, int xl, int xu, int yl, in
 	set_z(zl, zu);
 
 }
+
+Isometric_Render::Isometric_Render() {}
