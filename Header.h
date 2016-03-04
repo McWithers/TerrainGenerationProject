@@ -56,6 +56,8 @@ struct voxel {
 };
 
 struct pixel {
+	int x;
+	int y;
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;

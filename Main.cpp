@@ -4,9 +4,9 @@
 #include "Header.h"
 #include "EasyBMP.h"
 int main() {
-	int x=10;
-	int y=10;
-	int z=10;
+	int x=20;
+	int y=20;
+	int z=20;
 	World_Map Plot(x,y,z);
 	int i = 0;
 	int j = 0;
