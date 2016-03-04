@@ -19,19 +19,10 @@ class Species;
 #include <random>
 #include <math.h>
 #include <stdint.h>
-#define BMP_HEADER_SIZE 54
-#define DIB_HEADER_SIZE 40
-#define TRUE 1
-#define FALSE 0
-#define RED_MASK 0x7C00
-#define GREEN_MASK 0x03E0
-#define BLUE_MASK 0x001F
-#define RED_BIT 10
-#define GREEN_BIT 5
-#define BLUE_BIT 0
-
+#define FACE_HEIGHT 11
 
 using namespace std;
+/*
 struct BMP_Header {
 	uint16_t type;			// Magic identifier
 	uint32_t size;			// File size in bytes
@@ -55,7 +46,7 @@ struct BMP_Image {
 	BMP_Header header;
 	unsigned char *data;
 };
-
+*/
 
 struct voxel {
 	bool isSet;
@@ -69,7 +60,7 @@ struct pixel {
 	unsigned char g;
 	unsigned char b;
 };
-
+/*
 class bmp
 {
 private:
@@ -109,7 +100,7 @@ private:
 	//
 	BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x, int right_x,
 		int bottom_y, int top_y);
-};
+};*/
 
 class World_Map {
 private:
@@ -145,10 +136,11 @@ private:
 	int y_u;
 	int z_l;
 	int z_u;
-	int face_height;
 	pixel** image;
-	World_Map map;
+	World_Map *map;
 public:
+	int width;
+	int height;
 	int * get_x();
 	int * get_y();
 	int * get_z();
@@ -156,12 +148,11 @@ public:
 	void set_x(int, int);
 	void set_y(int, int);
 	void set_z(int, int);
-	void set_face_height(int);
-	int get_face_height();
 	void recursive_place(int, int, int);
 	void create_image(World_Map);
 	void place_cube(int, int, int);
-	Isometric_Render(World_Map map, int xl, int xu, int yl, int yu, int zl, int zu);
+	void draw_line(int * , int*);
+	Isometric_Render(World_Map *map, int xl, int xu, int yl, int yu, int zl, int zu);
 	Isometric_Render();
 };
 

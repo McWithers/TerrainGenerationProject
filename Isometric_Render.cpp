@@ -27,12 +27,12 @@ void Isometric_Render::draw_line(int *x, int *y) {
 
 void Isometric_Render::place_cube(int x, int y, int z) {
 	int * xy = find_xy(x, y, z);
-	int * point_start;
-	int * point_end_r;
-	int * point_end_l;
-	int * point_bottom;
-	int h = this->get_face_height();
-	int h_root = (h * sqrt(3)) / 2;
+	int point_start[2];
+	int point_end_r[2];
+	int point_end_l[2];
+	int point_bottom[2];
+	int h = FACE_HEIGHT;
+	int h_root = (int)(h * sqrt(3)) / 2;
 	int h_half = h / 2;
 	for (int i = 0; i < 2; i++) {
 		point_start[i] = xy[i];
@@ -59,24 +59,39 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	point_bottom[1] = point_end_l[1] - h;
 	draw_line(point_bottom, point_end_l);
 	draw_line(point_end_r, point_bottom);
-
+	free(xy);
 
 }
 
 int* Isometric_Render::find_xy(int x, int y, int z) {
-	int x_y[2];
-	x_y[0] = 3;
-	x_y[1] = 2;
+	int *x_y = (int*)malloc(sizeof(int)*2);
+	int h = FACE_HEIGHT;
+	int h_root = (int)(h * sqrt(3)) / 2;
+	int h_half = h / 2;
+	//inititalize to 0,0,0
+	x_y[0] = (this->get_y()[1] - this->get_y()[0] + 1)*(h_root-1) + 0;
+	x_y[1] = h-1;
+	printf("initial: x:%d,y:%d\n", x_y[0], x_y[1]);
+
+	//add x components
+	if (x) {
+		x_y[0] += x*(h_root-1);
+		x_y[1] += x*h_half;
+		printf("x components: x:%d,y:%d\n", x_y[0], x_y[1]);
+	}
+	//add y components
+	if (y) {
+		x_y[0] -=y*(h_root-1);
+		x_y[1] += y*h_half;
+		printf("y components: x:%d,y:%d\n", x_y[0], x_y[1]);
+	}//add z components
+	if (z) {
+		x_y[0] += 0;
+		x_y[1] += z*(h-1);
+		printf("final/z components: x:%d,y:%d\n", x_y[0], x_y[1]);
+	}
+	printf("point_xyz (%d,%d,%d) moved to point_xy(%d,%d)\n",x,y,z,x_y[0],x_y[1]);
 	return x_y;
-}
-
-void Isometric_Render::set_face_height(int height) {
-	this->face_height = height;
-}
-
-int Isometric_Render::get_face_height()
-{
-	return this->face_height;
 }
 
 int * Isometric_Render::get_x() {
@@ -115,10 +130,18 @@ void Isometric_Render::set_z(int low, int up) {
 	this->z_u = up;
 }
 
-Isometric_Render::Isometric_Render(World_Map the_map, int xl, int xu, int yl, int yu, int zl, int zu) {
+Isometric_Render::Isometric_Render(World_Map* the_map, int xl, int xu, int yl, int yu, int zl, int zu) {
 	set_x(xl, xu);
 	set_y(yl, yu);
 	set_z(zl, zu);
+	int h = FACE_HEIGHT;
+	int h_root = (int)(h * sqrt(3)) / 2;
+	int h_half = h / 2;
+	//int max_xy = (xu - xl + 1) > (yu - yl + 1) ? (xu - xl + 1) : (yu - yl + 1);
+	int * dimensions = find_xy((xu - xl + 1), (yu - yl + 1), (zu - zl + 1));
+	this->width = ((xu - xl + 1)+ (xu - xl + 1))*(h_root-1) + 1;
+	this->height = dimensions[1] - h + 1;
+	free(dimensions);
 
 }
 

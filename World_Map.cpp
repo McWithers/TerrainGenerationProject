@@ -15,9 +15,9 @@ void World_Map::allocate_memory() {
 			for (z_i = 0; z_i < this->z; z_i++) {
 				voxel *v = (voxel*)malloc(sizeof(voxel) * 1);
 				v->isSet = 1;
-				v->r = x_i % 255;
-				v->g = y_i % 255;
-				v->b = z_i % 255;
+				v->r = 255/this->x*x_i % 255;
+				v->g = 255 / this->y*y_i % 255;
+				v->b = 255 / this->z*z_i % 255;
 				v_z[z_i] = v;
 			}
 			v_yz[y_i] = v_z;
@@ -104,6 +104,6 @@ World_Map::~World_Map() {
 		}
 		free(map[x_i]);
 	}
-	free(map);
+//	free(map);
 }
 
