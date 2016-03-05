@@ -162,7 +162,7 @@ class Diamond_Squre {
 private:
 
 public:
-    int** Make_Array(int size); 
+    int** Make_Array(int x, int y); 
 
 };
 #endif // NeatZombies header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~
