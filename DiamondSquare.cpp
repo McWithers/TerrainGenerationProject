@@ -1,7 +1,7 @@
  #include "Header.h"
 
 //Creates empty 2d array 
-int** Make_Array(int x, int y)
+int** Diamond_Squre::Make_Array(int x, int y)
 {
     int i; 
     int** newArray = (int**) malloc(x * sizeof(int*)); 
@@ -14,3 +14,8 @@ int** Make_Array(int x, int y)
     return(newArray);     
 }
 
+//Setting corners of array 
+void Set_Corners(int** array)
+{
+    array[0][0] = 
+}
