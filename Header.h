@@ -138,8 +138,8 @@ private:
 	int y_u;
 	int z_l;
 	int z_u;
-	pixel** image;
-	World_Map *map;
+	//pixel** image;
+	//World_Map *map;
 public:
 	int width;
 	int height;

@@ -46,9 +46,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-#not needed files
+#not needed files 
 *.swp
 *.o
-Makefile
 *.bmp
 
