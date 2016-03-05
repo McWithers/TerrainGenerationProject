@@ -177,7 +177,7 @@ Isometric_Render::Isometric_Render(World_Map* the_map, int xl, int xu, int yl, i
 	set_z(zl, zu);
 	int h = FACE_HEIGHT;
 	int h_root = (int)(h * sqrt(3)) / 2;
-	int h_half = h / 2;
+	//int h_half = h / 2;
 	//int max_xy = (xu - xl + 1) > (yu - yl + 1) ? (xu - xl + 1) : (yu - yl + 1);
 	int * dimensions = find_xy((xu - xl + 1), (yu - yl + 1), (zu - zl + 1));
 	this->width = ((xu - xl + 1)+ (xu - xl + 1))*(h_root-1) + 1;
