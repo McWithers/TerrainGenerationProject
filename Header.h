@@ -158,4 +158,11 @@ public:
 	Isometric_Render();
 };
 
+class Diamond_Squre {
+private:
+
+public:
+    int ** Make_Array(int s); 
+
+};
 #endif // NeatZombies header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~
