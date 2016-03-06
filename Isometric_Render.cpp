@@ -19,7 +19,7 @@ void Isometric_Render::recursive_place(int curr_x, int curr_y, int curr_z) {
 }
 
 void Isometric_Render::draw_line(int *x, int *y) {
-	/*int x1 = x[0];
+	int x1 = x[0];
 	int x2 = x[1];
 	int y1 = y[0];
 	int y2 = y[1];
@@ -62,7 +62,7 @@ void Isometric_Render::draw_line(int *x, int *y) {
 			y += ystep;
 			error += dx;
 		}
-	}*/
+	}
 }
 
 

@@ -14,6 +14,16 @@ int main() {
 	Isometric_Render iso(&Plot, 0, x-1, 0, y-1, 0, z-1);
 	BMP image;
 	image.SetSize(iso.width, iso.height+1);
+	for (i = 0; i < iso.width; i++) {
+		for (j = 0; j < iso.height; j++) {
+			RGBApixel* pixel = new RGBApixel;
+			pixel->Alpha = 127;
+			pixel->Red = 0;
+			pixel->Green = 0;
+			pixel->Blue = 0;
+			image.SetPixel(i, j, *pixel);
+		}
+	}
     //change made
 	//bmp image(10,10,(char*)"air.bmp");
 	//image.save();

@@ -19,7 +19,7 @@ class Species;
 #include <random>
 #include <math.h>
 #include <stdint.h>
-#define FACE_HEIGHT 11
+#define FACE_HEIGHT 21
 
 using namespace std;
 /*
