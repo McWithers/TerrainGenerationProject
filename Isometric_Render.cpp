@@ -45,7 +45,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 
 	const int maxX = (int)x2;
 
-	for (int x = (int)x1; x<maxX; x++)
+	for (int x_new = (int)x1; x_new<maxX; x_new++)
 	{
 		if (steep)
 		{
@@ -54,8 +54,14 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Red = 192;
 			pixel->Green = 192;    //SILVER
 			pixel->Blue = 192;
-			this->bmp_image->SetPixel(y_new,x,*pixel);
-			for (int x_f = x; x < FACE_HEIGHT - (dy * 2) - 1; x_f++) {
+			this->bmp_image->SetPixel(y_new,x_new,*pixel);
+			int x_f = 0;
+			for ( x_f = x_new; x_f < FACE_HEIGHT - (dx * 2); x_f++) {
+
+
+			}
+			for (x_f = x_new; x_f > -FACE_HEIGHT * dx; x_f--) {
+
 
 			}
 		}
@@ -66,7 +72,16 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Red = 192;
 			pixel->Green = 192;    //SILVER
 			pixel->Blue = 192;
-			this->bmp_image->SetPixel(x, y_new, *pixel);
+			this->bmp_image->SetPixel(x_new, y_new, *pixel);
+			int y_f = 0;
+			for (int y_f = y_new; y_f < FACE_HEIGHT - (dy * 2) - 1; y_f++) {
+
+
+			}
+			for (y_f = y_new; y_f > -FACE_HEIGHT * dx; y_f--) {
+
+
+			}
 		}
 
 		error -= dy;
@@ -83,9 +98,9 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	int * xy = find_xy(x, y, z);
 	RGBApixel * pixel = new RGBApixel;
 	pixel->Alpha = 127;
-	pixel->Red = this->the_map->getpixel->r;
-	pixel->Blue = this->the_map->getpixel->b;
-	pixel->Green = this->the_map->getpixel->g;
+	pixel->Red = this->the_map->get_point->r;
+	pixel->Blue = this->the_map->get_point->b;
+	pixel->Green = this->the_map->get_point->g;
 
 	int point_start[2];
 	int point_end_r[2];
