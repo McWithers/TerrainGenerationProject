@@ -159,7 +159,7 @@ public:
 	void recursive_place(int, int, int);
 	void create_image(World_Map);
 	void place_cube(int, int, int);
-	void draw_line(int * , int*);
+	void draw_line(int * , int *, RGBApixel *);
 	Isometric_Render(World_Map*,BMP*,int,int,int,int,int,int);
 	Isometric_Render();
 };

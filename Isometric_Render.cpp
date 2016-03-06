@@ -18,7 +18,7 @@ void Isometric_Render::recursive_place(int curr_x, int curr_y, int curr_z) {
 	}
 }
 
-void Isometric_Render::draw_line(int *x, int *y) {
+void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 	int x1 = x[0];
 	int x2 = x[1];
 	int y1 = y[0];
@@ -55,6 +55,9 @@ void Isometric_Render::draw_line(int *x, int *y) {
 			pixel->Green = 192;    //SILVER
 			pixel->Blue = 192;
 			this->bmp_image->SetPixel(y_new,x,*pixel);
+			for (int x_f = x; x < FACE_HEIGHT - (dy * 2) - 1; x_f++) {
+
+			}
 		}
 		else
 		{
@@ -78,6 +81,12 @@ void Isometric_Render::draw_line(int *x, int *y) {
 
 void Isometric_Render::place_cube(int x, int y, int z) {
 	int * xy = find_xy(x, y, z);
+	RGBApixel * pixel = new RGBApixel;
+	pixel->Alpha = 127;
+	pixel->Red = this->the_map->getpixel->r;
+	pixel->Blue = this->the_map->getpixel->b;
+	pixel->Green = this->the_map->getpixel->g;
+
 	int point_start[2];
 	int point_end_r[2];
 	int point_end_l[2];
@@ -88,28 +97,28 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	for (int i = 0; i < 2; i++) {
 		point_start[i] = xy[i];
 	}
-	point_bottom[0] = xy[0];
-	point_bottom[1] = xy[1] - h;
-	draw_line(point_start, point_bottom);
+	//point_bottom[0] = xy[0];
+	//point_bottom[1] = xy[1] - h;
+	//draw_line(point_start, point_bottom);
 	point_end_r[0] = xy[0] + h_root;
 	point_end_r[1] = xy[1] + h_half;
 	point_end_l[0] = -point_end_r[0];
 	point_end_l[1] = point_end_r[1];
-	draw_line(point_start, point_end_r);
-	draw_line(point_start, point_end_l);
-	point_start[1] = point_start[1] + h;
-	draw_line(point_start, point_end_r);
-	draw_line(point_start, point_end_l);
-	point_bottom[0] = point_end_r[0];
-	point_bottom[1] = point_end_r[1] - h;
-	draw_line(point_bottom, point_end_r);
-	point_end_r[0] = xy[0];
-	point_end_r[1] = xy[1] - h;
-	draw_line(point_end_r, point_bottom);
-	point_bottom[0] = point_end_l[0];
-	point_bottom[1] = point_end_l[1] - h;
-	draw_line(point_bottom, point_end_l);
-	draw_line(point_end_r, point_bottom);
+	draw_line(point_start, point_end_r, pixel);
+	draw_line(point_start, point_end_l, pixel);
+	//point_start[1] = point_start[1] + h;
+	//draw_line(point_start, point_end_r);
+	//draw_line(point_start, point_end_l);
+	//point_bottom[0] = point_end_r[0];
+	//point_bottom[1] = point_end_r[1] - h;
+	//draw_line(point_bottom, point_end_r);
+	//point_end_r[0] = xy[0];
+	//point_end_r[1] = xy[1] - h;
+	//draw_line(point_end_r, point_bottom);
+	//point_bottom[0] = point_end_l[0];
+	//point_bottom[1] = point_end_l[1] - h;
+	//draw_line(point_bottom, point_end_l);
+	//draw_line(point_end_r, point_bottom);
 	free(xy);
 
 }
