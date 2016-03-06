@@ -36,12 +36,12 @@ void Isometric_Render::draw_line(int *x, int *y) {
 		std::swap(y1, y2);
 	}
 
-	const float dx = x2 - x1;
-	const float dy = fabs(y2 - y1);
+	const float dx = (float)(x2 - x1);
+	const float dy = (float)fabs(y2 - y1);
 
 	float error = dx / 2.0f;
 	const int ystep = (y1 < y2) ? 1 : -1;
-	int y = (int)y1;
+	int y_new = (int)y1;
 
 	const int maxX = (int)x2;
 
@@ -49,11 +49,21 @@ void Isometric_Render::draw_line(int *x, int *y) {
 	{
 		if (steep)
 		{
-			SetPixel(y, x, color);
+			RGBApixel* pixel = new RGBApixel;
+			pixel->Alpha = 127;
+			pixel->Red = 192;
+			pixel->Green = 192;    //SILVER
+			pixel->Blue = 192;
+			this->bmp_image->SetPixel(y_new,x,*pixel);
 		}
 		else
 		{
-			SetPixel(x, y, color);
+			RGBApixel* pixel = new RGBApixel;
+			pixel->Alpha = 127;
+			pixel->Red = 192;
+			pixel->Green = 192;    //SILVER
+			pixel->Blue = 192;
+			this->bmp_image->SetPixel(x, y_new, *pixel);
 		}
 
 		error -= dy;
@@ -171,15 +181,16 @@ void Isometric_Render::set_z(int low, int up) {
 	this->z_u = up;
 }
 
-Isometric_Render::Isometric_Render(World_Map* the_map, int xl, int xu, int yl, int yu, int zl, int zu) {
+Isometric_Render::Isometric_Render(World_Map* the_map, BMP *the_bmp_image, int xl, int xu, int yl, int yu, int zl, int zu) {
 	set_x(xl, xu);
 	set_y(yl, yu);
 	set_z(zl, zu);
 	int h = FACE_HEIGHT;
 	int h_root = (int)(h * sqrt(3)) / 2;
+	this->bmp_image = the_bmp_image;
 	//int h_half = h / 2;
 	//int max_xy = (xu - xl + 1) > (yu - yl + 1) ? (xu - xl + 1) : (yu - yl + 1);
-	int * dimensions = find_xy((xu - xl + 1), (yu - yl + 1), (zu - zl + 1));
+	int * dimensions = this->find_xy((xu - xl + 1), (yu - yl + 1), (zu - zl + 1));
 	this->width = ((xu - xl + 1)+ (xu - xl + 1))*(h_root-1) + 1;
 	this->height = dimensions[1] - h + 1;
 	free(dimensions);

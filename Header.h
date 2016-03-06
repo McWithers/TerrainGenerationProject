@@ -19,6 +19,10 @@ class Species;
 #include <random>
 #include <math.h>
 #include <stdint.h>
+#include "EasyBMP.h"
+#include "EasyBMP_BMP.h"
+#include "EasyBMP_DataStructures.h"
+#include "EasyBMP_VariousBMPutilities.h"
 #define FACE_HEIGHT 21
 
 using namespace std;
@@ -143,6 +147,7 @@ private:
 public:
 	int width;
 	int height;
+	BMP *bmp_image;
 	int * get_x();
 	int * get_y();
 	int * get_z();
@@ -154,7 +159,7 @@ public:
 	void create_image(World_Map);
 	void place_cube(int, int, int);
 	void draw_line(int * , int*);
-	Isometric_Render(World_Map *map, int xl, int xu, int yl, int yu, int zl, int zu);
+	Isometric_Render(World_Map*,BMP*,int,int,int,int,int,int);
 	Isometric_Render();
 };
 

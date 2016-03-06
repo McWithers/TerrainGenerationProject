@@ -11,9 +11,9 @@ int main() {
 	int i = 0;
 	int j = 0;
 	int k = 0;
-	Isometric_Render iso(&Plot, 0, x-1, 0, y-1, 0, z-1);
-	BMP image;
-	image.SetSize(iso.width, iso.height+1);
+	BMP *image = new BMP;
+	Isometric_Render iso(&Plot, image, 0, x-1, 0, y-1, 0, z-1);
+	image->SetSize(iso.width, iso.height+1);
 	for (i = 0; i < iso.width; i++) {
 		for (j = 0; j < iso.height; j++) {
 			RGBApixel* pixel = new RGBApixel;
@@ -21,12 +21,12 @@ int main() {
 			pixel->Red = 0;
 			pixel->Green = 0;
 			pixel->Blue = 0;
-			image.SetPixel(i, j, *pixel);
+			image->SetPixel(i, j, *pixel);
 		}
 	}
     //change made
 	//bmp image(10,10,(char*)"air.bmp");
-	//image.save();
+	//image->save();
 	printf("Saved!\n");
 	int x_max = Plot.get_x();
 	int y_max = Plot.get_y();
@@ -43,7 +43,7 @@ int main() {
 					pixel->Red = Plot.get_point(i, j, k)->r;
 					pixel->Green = Plot.get_point(i, j, k)->g;
 					pixel->Blue = Plot.get_point(i, j, k)->b;
-					image.SetPixel(point[0], iso.height-point[1], *pixel);
+					image->SetPixel(point[0], iso.height-point[1], *pixel);
 					//cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
 				//}
 				}
@@ -55,7 +55,7 @@ int main() {
 	pixel->Red = 0;
 	pixel->Green = 0;
 	pixel->Blue = 0;
-	image.SetPixel(0, 0, *pixel);
+	image->SetPixel(0, 0, *pixel);
 
 
 	Plot.set_point(0, 0, 0);
@@ -63,7 +63,7 @@ int main() {
 	printf("\n\n\n%d     %d\n", point[0], point[1]);
 	point = iso.find_xy(1, 1, 0);
 	printf("\n%d     %d\n", point[0], point[1]);
-	image.WriteToFile("isometric.bmp");
+	image->WriteToFile("isometric.bmp");
 
 	//Plot.~World_Map();
 	return EXIT_SUCCESS;
