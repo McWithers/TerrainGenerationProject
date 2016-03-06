@@ -146,6 +146,7 @@ private:
 	//World_Map *map;
 public:
 	int width;
+	World_Map *the_map;
 	int height;
 	BMP *bmp_image;
 	int * get_x();

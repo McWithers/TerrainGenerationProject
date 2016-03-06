@@ -181,9 +181,10 @@ void Isometric_Render::set_z(int low, int up) {
 	this->z_u = up;
 }
 
-Isometric_Render::Isometric_Render(World_Map* the_map, BMP *the_bmp_image, int xl, int xu, int yl, int yu, int zl, int zu) {
+Isometric_Render::Isometric_Render(World_Map* _map, BMP *the_bmp_image, int xl, int xu, int yl, int yu, int zl, int zu) {
 	set_x(xl, xu);
 	set_y(yl, yu);
+	this->the_map = _map;
 	set_z(zl, zu);
 	int h = FACE_HEIGHT;
 	int h_root = (int)(h * sqrt(3)) / 2;
