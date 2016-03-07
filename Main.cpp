@@ -60,8 +60,8 @@ int main() {
 	a[0] = 17;
 	a[1] = 82;
 	int * b = (int *)malloc(sizeof(int) * 2);
-	b[0] = 43;
-	b[1] = 53;
+	b[0] = 443;
+	b[1] = 253;
 	iso.draw_line(a, b, pixel);
 	pixel = new RGBApixel;
 	pixel->Alpha = 127;
