@@ -57,12 +57,12 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Green = 192;    //SILVER
 			pixel->Blue = 192;
 			this->bmp_image->SetPixel(y_new,x_new,*pixel);
-			//int x_f = 0;
-			//for ( x_f = x_new; x_f < FACE_HEIGHT - (dx * 2); x_f++) {
-			//	this->bmp_image->SetPixel(y_new, x_f, *pixel);
-			//}
-			//for (x_f = x_new; x_f > -FACE_HEIGHT * dx; x_f--) {
-			//	this->bmp_image->SetPixel(y_new, x_f, *pixel);
+			int x_f = 0;
+		    for ( x_f = x_new; x_f < FACE_HEIGHT - (dx * 2); x_f++) {
+				this->bmp_image->SetPixel(y_new, x_f, *pixel);
+			}
+			for (x_f = x_new; x_f > -FACE_HEIGHT * dx; x_f--) {
+				this->bmp_image->SetPixel(y_new, x_f, *pixel);
 
 
 				//if (right = 1) {
@@ -73,7 +73,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 				//	brightness = .8;
 				//	this->bmp_image->GetPixel(y_new, x_f);
 					
-				//}
+				}
 			}
 		else
 		{
@@ -83,13 +83,13 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Green = 192;    //SILVER
 			pixel->Blue = 192;
 			this->bmp_image->SetPixel(x_new, y_new, *pixel);
-			//int y_f = 0;
-			//for (int y_f = y_new; y_f < FACE_HEIGHT - (dy * 2) - 1; y_f++) {
-			//	this->bmp_image->SetPixel(x_new, y_f, *pixel);
-			//}
-			//for (y_f = y_new; y_f > -FACE_HEIGHT * dx; y_f--) {
-			//	this->bmp_image->SetPixel(x_new, y_f, *pixel);
-			//}
+			int y_f = 0;
+			for (int y_f = y_new; y_f < FACE_HEIGHT - (dy * 2) - 1; y_f++) {
+				this->bmp_image->SetPixel(x_new, y_f, *pixel);
+			}
+			for (y_f = y_new; y_f > -FACE_HEIGHT * dx; y_f--) {
+				this->bmp_image->SetPixel(x_new, y_f, *pixel);
+			}
 		}
 
 		error -= dy;
@@ -113,8 +113,8 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 
 	int * point_start = (int *) malloc(sizeof(int) * 2);
 	int * point_end_r = (int *) malloc(sizeof(int) * 2);
-	int *point_end_l = (int *) malloc(sizeof(int) * 2);
-	int *point_bottom = (int *)malloc(sizeof(int) * 2);
+	int * point_end_l = (int *) malloc(sizeof(int) * 2);
+	int * point_bottom = (int *)malloc(sizeof(int) * 2);
 	int h = FACE_HEIGHT;
 	int h_root = (int)(h * sqrt(3)) / 2;
 	int h_half = h / 2;
