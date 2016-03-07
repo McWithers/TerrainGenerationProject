@@ -127,8 +127,8 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	//draw_line(point_start, point_bottom);
 	point_end_r[0] = xy[0] + h_root;
 	point_end_r[1] = xy[1] + h_half;
-	point_end_l[0] = -point_end_r[0];
-	point_end_l[1] = point_end_r[1];
+	point_end_l[0] = xy[0] - h_root;
+	point_end_l[1] = xy[1] + h_half;
 	draw_line(point_start, point_end_r, pixel);
 	draw_line(point_start, point_end_l, pixel); 
 	//point_start[1] = point_start[1] + h;

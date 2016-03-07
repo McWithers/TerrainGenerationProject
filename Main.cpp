@@ -31,14 +31,20 @@ int main() {
 	int x_max = Plot.get_x();
 	int y_max = Plot.get_y();
 	int z_max = Plot.get_z();
-	//for (i = 0; i < x_max; i++) {
-		//for (j = 0; j < y_max; j++) {
-			//for (k = 0; k < z_max; k++) {
+	int * a = (int *)malloc(sizeof(int) * 2);
+	int * b = (int *)malloc(sizeof(int) * 2);
+	a[0] = 0;
+	a[1] = 10;
+	b[0] = 0;
+	b[1] = 10;
+	for (i = 0; i < x_max; i++) {
+		for (j = 0; j < y_max; j++) {
+			for (k = 0; k < z_max; k++) {
 				//if (k == (int)(25 + 10 * sin(i))) {
 				//if (1) {
 					//Plot.set_point(i, j, k);
 					//int * point = iso.find_xy(i, j, k);
-					//iso.place_cube(i,j,k);
+			
 					//RGBApixel* pixel = new RGBApixel;
 					//pixel->Alpha = 127;
 					//pixel->Red = Plot.get_point(i, j, k)->r;
@@ -47,28 +53,30 @@ int main() {
 					//image->SetPixel(point[0], iso.height-point[1], *pixel);
 					//cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
 				//}
-				//}
-			//}
-		//}
+				}
+			}
+		}
+	free(a);
+	free(b);
 	//}
-	RGBApixel* pixel = new RGBApixel;
-	pixel->Alpha = 127;
-	pixel->Red =192;
-	pixel->Green = 192;
-	pixel->Blue = 192;
-	int * a = (int *)malloc(sizeof(int)*2);
-	a[0] = 17;
-	a[1] = 82;
-	int * b = (int *)malloc(sizeof(int) * 2);
-	b[0] = 25;
-	b[1] = 3;
-	iso.draw_line(a, b, pixel);
-	pixel = new RGBApixel;
-	pixel->Alpha = 127;
-	pixel->Red = 0;
-	pixel->Green = 0;
-	pixel->Blue = 0;
-	image->SetPixel(0, 0, *pixel);
+	//RGBApixel* pixel = new RGBApixel;
+	//pixel->Alpha = 127;
+	//pixel->Red =192;
+	//pixel->Green = 192;
+	//pixel->Blue = 192;
+	//int * a = (int *)malloc(sizeof(int)*2);
+	//a[0] = 17;
+	//a[1] = 82;
+	//int * b = (int *)malloc(sizeof(int) * 2);
+	//b[0] = 25;
+	//b[1] = 3;
+	//iso.draw_line(a, b, pixel);
+	//pixel = new RGBApixel;
+	//pixel->Alpha = 127;
+	//pixel->Red = 0;
+	//pixel->Green = 0;
+	//pixel->Blue = 0;
+	//image->SetPixel(0, 0, *pixel);
 
 
 	Plot.set_point(0, 0, 0);
