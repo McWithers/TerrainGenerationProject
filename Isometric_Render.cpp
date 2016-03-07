@@ -29,14 +29,12 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 		right = 0;
 	}
 	const bool steep = (fabs(y2 - y1) > fabs(x2 - x1));
-	if (steep)
-	{
+	if (steep){
 		std::swap(x1, y1);
 		std::swap(x2, y2);
 	}
 
-	if (x1 > x2)
-	{
+	if (x1 > x2){
 		std::swap(x1, x2);
 		std::swap(y1, y2);
 	}
@@ -50,8 +48,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 
 	const int maxX = (int)x2;
 
-	for (int x_new = (int)x1; x_new<maxX; x_new++)
-	{
+	for (int x_new = (int)x1; x_new<maxX; x_new++){
 		if (steep)
 		{
 			RGBApixel* pixel = new RGBApixel;
@@ -60,12 +57,14 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Green = 192;    //SILVER
 			pixel->Blue = 192;
 			this->bmp_image->SetPixel(y_new,x_new,*pixel);
-			int x_f = 0;
-			for ( x_f = x_new; x_f < FACE_HEIGHT - (dx * 2); x_f++) {
-				this->bmp_image->SetPixel(y_new, x_f, *pixel);
-			}
-			for (x_f = x_new; x_f > -FACE_HEIGHT * dx; x_f--) {
-				this->bmp_image->SetPixel(y_new, x_f, *pixel);
+			//int x_f = 0;
+			//for ( x_f = x_new; x_f < FACE_HEIGHT - (dx * 2); x_f++) {
+			//	this->bmp_image->SetPixel(y_new, x_f, *pixel);
+			//}
+			//for (x_f = x_new; x_f > -FACE_HEIGHT * dx; x_f--) {
+			//	this->bmp_image->SetPixel(y_new, x_f, *pixel);
+
+
 				//if (right = 1) {
 				//	brightness = 0.6;
 				//	this->bmp_image->SetPixel(y_new, x_f, *pixel);
@@ -76,7 +75,6 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 					
 				//}
 			}
-		}
 		else
 		{
 			RGBApixel* pixel = new RGBApixel;
@@ -85,13 +83,13 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Green = 192;    //SILVER
 			pixel->Blue = 192;
 			this->bmp_image->SetPixel(x_new, y_new, *pixel);
-			int y_f = 0;
-			for (int y_f = y_new; y_f < FACE_HEIGHT - (dy * 2) - 1; y_f++) {
-				this->bmp_image->SetPixel(x_new, y_f, *pixel);
-			}
-			for (y_f = y_new; y_f > -FACE_HEIGHT * dx; y_f--) {
-				this->bmp_image->SetPixel(x_new, y_f, *pixel);
-			}
+			//int y_f = 0;
+			//for (int y_f = y_new; y_f < FACE_HEIGHT - (dy * 2) - 1; y_f++) {
+			//	this->bmp_image->SetPixel(x_new, y_f, *pixel);
+			//}
+			//for (y_f = y_new; y_f > -FACE_HEIGHT * dx; y_f--) {
+			//	this->bmp_image->SetPixel(x_new, y_f, *pixel);
+			//}
 		}
 
 		error -= dy;
@@ -102,6 +100,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 		}
 	}
 }
+
 
 
 void Isometric_Render::place_cube(int x, int y, int z) {

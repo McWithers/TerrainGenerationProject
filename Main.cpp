@@ -13,7 +13,7 @@ int main() {
 	int k = 0;
 	BMP *image = new BMP;
 	Isometric_Render iso(&Plot, image, 0, x-1, 0, y-1, 0, z-1);
-	image->SetSize(iso.width, iso.height+1);
+	image->SetSize(iso.width + DEBUGGING_WIDTH, iso.height+1+DEBUGGING_HEIGHT);
 	for (i = 0; i < iso.width; i++) {
 		for (j = 0; j < iso.height; j++) {
 			RGBApixel* pixel = new RGBApixel;
