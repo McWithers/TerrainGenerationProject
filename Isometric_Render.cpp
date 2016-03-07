@@ -44,7 +44,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 
 	float error = dx / 2.0f;
 	const int ystep = (y1 < y2) ? 1 : -1;
-	int y_new = (int)y1;
+	int y_new = y1;
 
 	const int maxX = (int)x2;
 
@@ -143,6 +143,10 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	//point_bottom[1] = point_end_l[1] - h;
 	//draw_line(point_bottom, point_end_l);
 	//draw_line(point_end_r, point_bottom);
+	free(point_start);
+	free(point_end_r);
+	free(point_end_l);
+	free(point_bottom);
 	free(xy);
 
 }

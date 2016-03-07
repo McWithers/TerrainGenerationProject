@@ -38,7 +38,7 @@ int main() {
 				if (1) {
 					//Plot.set_point(i, j, k);
 					//int * point = iso.find_xy(i, j, k);
-					iso.place_cube(i,j,k);
+					//iso.place_cube(i,j,k);
 					//RGBApixel* pixel = new RGBApixel;
 					//pixel->Alpha = 127;
 					//pixel->Red = Plot.get_point(i, j, k)->r;
@@ -52,6 +52,18 @@ int main() {
 		}
 	}
 	RGBApixel* pixel = new RGBApixel;
+	pixel->Alpha = 127;
+	pixel->Red =192;
+	pixel->Green = 192;
+	pixel->Blue = 192;
+	int a[2];
+	a[0] = 17;
+	a[1] = 82;
+	int b[2];
+	a[0] = 43;
+	a[1] = 53;
+	iso.draw_line(a, b, pixel);
+	pixel = new RGBApixel;
 	pixel->Alpha = 127;
 	pixel->Red = 0;
 	pixel->Green = 0;
