@@ -56,12 +56,12 @@ int main() {
 	pixel->Red =192;
 	pixel->Green = 192;
 	pixel->Blue = 192;
-	int a[2];
+	int * a = (int *)malloc(sizeof(int)*2);
 	a[0] = 17;
 	a[1] = 82;
-	int b[2];
-	a[0] = 43;
-	a[1] = 53;
+	int * b = (int *)malloc(sizeof(int) * 2);
+	b[0] = 43;
+	b[1] = 53;
 	iso.draw_line(a, b, pixel);
 	pixel = new RGBApixel;
 	pixel->Alpha = 127;
