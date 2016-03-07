@@ -111,10 +111,10 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	pixel->Blue = this->the_map->get_point(x,y,z)->b;
 	pixel->Green = this->the_map->get_point(x,y,z)->g;
 
-	int point_start[2];
-	int point_end_r[2];
-	int point_end_l[2];
-	int point_bottom[2];
+	int * point_start = (int *) malloc(sizeof(int) * 2);
+	int * point_end_r = (int *) malloc(sizeof(int) * 2);
+	int *point_end_l = (int *) malloc(sizeof(int) * 2);
+	int *point_bottom = (int *)malloc(sizeof(int) * 2);
 	int h = FACE_HEIGHT;
 	int h_root = (int)(h * sqrt(3)) / 2;
 	int h_half = h / 2;

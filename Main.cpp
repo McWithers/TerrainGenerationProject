@@ -31,11 +31,11 @@ int main() {
 	int x_max = Plot.get_x();
 	int y_max = Plot.get_y();
 	int z_max = Plot.get_z();
-	for (i = 0; i < x_max; i++) {
-		for (j = 0; j < y_max; j++) {
-			for (k = 0; k < z_max; k++) {
+	//for (i = 0; i < x_max; i++) {
+		//for (j = 0; j < y_max; j++) {
+			//for (k = 0; k < z_max; k++) {
 				//if (k == (int)(25 + 10 * sin(i))) {
-				if (1) {
+				//if (1) {
 					//Plot.set_point(i, j, k);
 					//int * point = iso.find_xy(i, j, k);
 					//iso.place_cube(i,j,k);
@@ -47,10 +47,10 @@ int main() {
 					//image->SetPixel(point[0], iso.height-point[1], *pixel);
 					//cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
 				//}
-				}
-			}
-		}
-	}
+				//}
+			//}
+		//}
+	//}
 	RGBApixel* pixel = new RGBApixel;
 	pixel->Alpha = 127;
 	pixel->Red =192;
