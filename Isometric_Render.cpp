@@ -96,7 +96,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 		error -= dy;
 		if (error < 0)
 		{
-			y += ystep;
+			y_new += ystep;
 			error += dx;
 		}
 	}
