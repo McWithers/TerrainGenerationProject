@@ -23,6 +23,11 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 	int x2 = x[1];
 	int y1 = y[0];
 	int y2 = y[1];
+	int right = 1;
+	float brightness = 1.0;
+	if (y2 - y1 < 0) {
+		right = 0;
+	}
 	const bool steep = (fabs(y2 - y1) > fabs(x2 - x1));
 	if (steep)
 	{
@@ -57,12 +62,19 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			this->bmp_image->SetPixel(y_new,x_new,*pixel);
 			int x_f = 0;
 			for ( x_f = x_new; x_f < FACE_HEIGHT - (dx * 2); x_f++) {
-
-
+				this->bmp_image->SetPixel(y_new, x_f, *pixel);
 			}
 			for (x_f = x_new; x_f > -FACE_HEIGHT * dx; x_f--) {
-
-
+				this->bmp_image->SetPixel(y_new, x_f, *pixel);
+				//if (right = 1) {
+				//	brightness = 0.6;
+				//	this->bmp_image->SetPixel(y_new, x_f, *pixel);
+				//}
+				//else {
+				//	brightness = .8;
+				//	this->bmp_image->GetPixel(y_new, x_f);
+					
+				//}
 			}
 		}
 		else
@@ -75,12 +87,10 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			this->bmp_image->SetPixel(x_new, y_new, *pixel);
 			int y_f = 0;
 			for (int y_f = y_new; y_f < FACE_HEIGHT - (dy * 2) - 1; y_f++) {
-
-
+				this->bmp_image->SetPixel(x_new, y_f, *pixel);
 			}
 			for (y_f = y_new; y_f > -FACE_HEIGHT * dx; y_f--) {
-
-
+				this->bmp_image->SetPixel(x_new, y_f, *pixel);
 			}
 		}
 
@@ -98,9 +108,9 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	int * xy = find_xy(x, y, z);
 	RGBApixel * pixel = new RGBApixel;
 	pixel->Alpha = 127;
-	pixel->Red = this->the_map->get_point->r;
-	pixel->Blue = this->the_map->get_point->b;
-	pixel->Green = this->the_map->get_point->g;
+	pixel->Red = this->the_map->get_point(x,y,z)->r;
+	pixel->Blue = this->the_map->get_point(x,y,z)->b;
+	pixel->Green = this->the_map->get_point(x,y,z)->g;
 
 	int point_start[2];
 	int point_end_r[2];

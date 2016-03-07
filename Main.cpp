@@ -36,14 +36,15 @@ int main() {
 			for (k = 0; k < z_max; k++) {
 				//if (k == (int)(25 + 10 * sin(i))) {
 				if (1) {
-					Plot.set_point(i, j, k);
-					int * point = iso.find_xy(i, j, k);
-					RGBApixel* pixel = new RGBApixel;
-					pixel->Alpha = 127;
-					pixel->Red = Plot.get_point(i, j, k)->r;
-					pixel->Green = Plot.get_point(i, j, k)->g;
-					pixel->Blue = Plot.get_point(i, j, k)->b;
-					image->SetPixel(point[0], iso.height-point[1], *pixel);
+					//Plot.set_point(i, j, k);
+					//int * point = iso.find_xy(i, j, k);
+					iso.place_cube(i,j,k);
+					//RGBApixel* pixel = new RGBApixel;
+					//pixel->Alpha = 127;
+					//pixel->Red = Plot.get_point(i, j, k)->r;
+					//pixel->Green = Plot.get_point(i, j, k)->g;
+					//pixel->Blue = Plot.get_point(i, j, k)->b;
+					//image->SetPixel(point[0], iso.height-point[1], *pixel);
 					//cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
 				//}
 				}
