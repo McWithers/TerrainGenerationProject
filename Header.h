@@ -168,9 +168,10 @@ public:
 
 class Diamond_Squre {
 private:
-
+   void set_array2d(int x, int y); 
+   void set_corners(int** array);
 public:
-    int** Make_Array(int x, int y); 
+   int** get_array2d();
 
 };
 #endif // NeatZombies header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~

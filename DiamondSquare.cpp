@@ -1,21 +1,25 @@
  #include "Header.h"
 
 //Creates empty 2d array 
-int** Diamond_Squre::Make_Array(int x, int y)
+void Diamond_Squre::set_array2d(int x, int y)
 {
     int i; 
-    int** newArray = (int**) malloc(x * sizeof(int*)); 
+    this -> array2d = (int**) malloc(x * sizeof(int*)); 
     
     for(i = 0; i < x; i++)
     { 
-        *(newArray + i) = (int*)malloc(y * sizeof(int)); 
+        *(this -> array2d + i) = (int*)malloc(y * sizeof(int)); 
     }
     
-    return(newArray);     
 }
 
-//Setting corners of array 
-void Set_Corners(int** array)
+int** Diamond_Squre::get_array2d()
 {
-    array[0][0] = 
+    return(this -> array2d);
+}
+//Setting corners of array 
+void Diamond_Squre::set_corners(int** array)
+{
+    set_array2d(5, 5); 
+    int** newArray = get_array2d();  
 }
