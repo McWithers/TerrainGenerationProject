@@ -166,12 +166,19 @@ public:
 	Isometric_Render();
 };
 
-class Diamond_Squre {
+class Diamond_Square {
 private:
-   void set_array2d(int x, int y); 
-   void set_corners(int** array);
+	int **array2d;
+	int x;
+	int y;
+   void set_array2d(int x, int y);
+	void set_x(int value);
+	void set_y(int value);
 public:
    int** get_array2d();
-
+	int get_x();
+	int get_y();
+	Diamond_Square(int size, int max_height);
+	Diamond_Square();
 };
 #endif // NeatZombies header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~
