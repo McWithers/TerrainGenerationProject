@@ -24,8 +24,8 @@ class Species;
 #include "EasyBMP_DataStructures.h"
 #include "EasyBMP_VariousBMPutilities.h"
 #define FACE_HEIGHT 21
-#define DEBUGGING_WIDTH 1000
-#define DEBUGGING_HEIGHT 1000
+#define DEBUGGING_WIDTH 0//1000
+#define DEBUGGING_HEIGHT 0//1000
 
 using namespace std;
 /*
