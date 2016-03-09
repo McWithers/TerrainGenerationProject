@@ -58,7 +58,7 @@ int main() {
 					pixel->Blue = Plot.get_point(i, j, k)->b;
 					image->SetPixel(point[0], iso.height - point[1], *pixel);
 					*/
-					cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
+					//cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
 				}
 			}
 		}
