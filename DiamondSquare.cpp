@@ -43,11 +43,11 @@ Diamond_Square::Diamond_Square(int size, int max_height)
 <<<<<<< Updated upstream
     set_x(size); 
     set_y(size);
-    set_array2d(get_x(), get_y()); 
-    this->array2d[0][get_y()] = rand() % max_height; 
+    set_array2d(this->x, this->y); 
+    this->array2d[0][this->y-1] = rand() % max_height; 
 	 this->array2d[0][0] = rand() % max_height;
-	 this->array2d[get_x()][0] = rand() % max_height;
-	 this->array2d[get_x()][get_y()] = rand() % max_height;
+	 this->array2d[this->x-1][0] = rand() % max_height;
+	 this->array2d[this->x-1][this->y-1] = rand() % max_height;
  
      
 }

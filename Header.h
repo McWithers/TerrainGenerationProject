@@ -1,6 +1,7 @@
 //Header Guard~~~~~~~~~~~~~~~~~~~~~~~~~
-#ifndef Header_NEAT_H_Included_
-#define Header_NEAT_H_Included_
+#ifndef Header_H
+#define Header_H
+
 #define _CRT_SECURE_NO_WARNINGS
 
 //Forward Declared Dependencies~~~~~~~~~~~~~~~~~~~~~~~~~
