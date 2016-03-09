@@ -4,9 +4,10 @@
 #include "Header.h"
 #include "EasyBMP.h"
 int main() {
-	int x=100;
-	int y=100;
-	int z=100;
+	int sqSize = 40;
+	int x=sqSize;
+	int y=sqSize;
+	int z=sqSize;
 	World_Map Plot(x,y,z);
 	int i = 0;
 	int j = 0;
@@ -42,14 +43,14 @@ int main() {
 	b[0] = 100;//x2
 	a[1] = 80;//y2
 
-	for (i = -50; i < x_max-50; i++) {
-		for (j = -50; j < y_max-50; j++) {
-			for (k = -50; k < z_max-50; k++) {
-				if (i*i + j*j + k*k <= 21 * 21 ? i*i + j*j + k*k >= 20 * 20 ? 1 : 0 : 0) {
+	for (i = -sqSize/2; i < x_max-sqSize/2; i++) {
+		for (j = -sqSize/2; j < y_max-sqSize/2; j++) {
+			for (k = -sqSize/2; k < z_max-sqSize/2; k++) {
+				if (i*i + j*j + k*k <= 19 * 19 ? i*i + j*j + k*k >= 18 * 18 ? 1 : 0 : 0) {
 					//if (1) {
-					Plot.set_point(i+50, j+50, k+50);
-					int * point = iso.find_xy(i+50, j+50, k+50);
-					iso.place_cube(i+50, j+50, k+50);
+					Plot.set_point(i+sqSize/2, j+sqSize/2, k+sqSize/2);
+					int * point = iso.find_xy(i+sqSize/2, j+sqSize/2, k+sqSize/2);
+					iso.place_cube(i+sqSize/2, j+sqSize/2, k+sqSize/2);
 					/*RGBApixel* pixel = new RGBApixel;
 					pixel->Alpha = 127;
 					pixel->Red = Plot.get_point(i, j, k)->r;
