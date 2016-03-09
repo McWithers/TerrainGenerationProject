@@ -45,7 +45,7 @@ int main() {
 	for (i = -50; i < x_max-50; i++) {
 		for (j = -50; j < y_max-50; j++) {
 			for (k = -50; k < z_max-50; k++) {
-				if (i*i + j*j + k*k <= 20 * 20 ? 1 : 0) {
+				if (i*i + j*j + k*k <= 21 * 21 ? i*i + j*j + k*k >= 20 * 20 ? 1 : 0 : 0) {
 					//if (1) {
 					Plot.set_point(i+50, j+50, k+50);
 					int * point = iso.find_xy(i+50, j+50, k+50);

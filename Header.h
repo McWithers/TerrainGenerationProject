@@ -169,25 +169,13 @@ public:
 
 class Diamond_Square {
 private:
-<<<<<<< Updated upstream
 	int **array2d;
 	int x;
 	int y;
-   void set_array2d(int x, int y);
 	void set_x(int value);
 	void set_y(int value);
-=======
    void set_array2d(int x, int y); 
-   void set_corners(int** array);
-   void find_midpoint(int value1, int value2);
-   void set_x(int value); 
-   void set_y(int value);
-   int get_x();
-   int get_y(); 
-   int** array2d; 
-   int x; 
-   int y; 
->>>>>>> Stashed changes
+   int find_midpoint(int value1, int value2);
 public:
    int** get_array2d();
 	int get_x();
