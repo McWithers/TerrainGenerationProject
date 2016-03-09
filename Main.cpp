@@ -20,11 +20,11 @@ int main() {
 		for (j = 0; j < iso.height; j++) {
 			RGBApixel* pixel = new RGBApixel;
 			pixel->Alpha = 127;
-			//pixel->Red = (int)(iso.height * 255 / (j + 1))%255;
-			pixel->Red = 0;
-			//pixel->Green = (int)((iso.height/255)*i);
-			pixel->Green = 0;
-			pixel->Blue = 0;
+			//pixel->Red = (int)(iso.height * 0 / (j + 1))%255;
+			pixel->Red = 150;
+			//pixel->Green = (int)((iso.height/25)*i);
+			pixel->Green = 150;
+			pixel->Blue = 150;
 			image->SetPixel(i, j, *pixel);
 		}
 	}
@@ -42,11 +42,19 @@ int main() {
 	b[1] = 60;//y1
 	b[0] = 100;//x2
 	a[1] = 80;//y2
-
-	for (i = -sqSize/2; i < x_max-sqSize/2; i++) {
-		for (j = -sqSize/2; j < y_max-sqSize/2; j++) {
-			for (k = -sqSize/2; k < z_max-sqSize/2; k++) {
-				if (i*i + j*j + k*k <= 19 * 19 ? i*i + j*j + k*k >= 18 * 18 ? 1 : 0 : 0) {
+	
+	for (i = -sqSize/2 + 2; i < x_max-sqSize/2 - 2; i++) {
+		for (j = -sqSize/2 + 2; j < y_max-sqSize/2 - 2; j++) {
+			for (k = -sqSize/2 + 2; k < z_max-sqSize/2 - 2; k++) {
+				cout << "cos: " <<  11 * cos(k) << endl;
+				if(i == 11 * cos(k *  (PI/180) || j == 11 * sin(k * (PI/180)))){
+					
+				//if(i == j || i == k == j){
+				//if(k == (k/sqrt(1 - ((i * i)/ 28 * 28))) - (k * k)/16 + (i * i)/25 || i == j == k ) {
+				//if(k /16 == (i * i)/49 - (j *j)/81 || k * k == i * i + j * j){
+				//if(/*k * k == i * i + j*j || i * i == k * k + j * j || j * j == i * i + k * k ||*/ j * 5* sin(i * (PI/180)) == j * k) {// || i * 5 * cos(j * (PI / 180)) == i * k){
+				//if (10 * sin(k) >= k && 11 * sin(k) < k && 11 * cos(j) <= j && 9 * cos(j) > j) {
+				//if (i*i + j*j + k*k <= 19 * 19 ? i*i + j*j + k*k >= 18 * 18 ? 1 : 0 : 0) {
 					//if (1) {
 					Plot.set_point(i+sqSize/2, j+sqSize/2, k+sqSize/2);
 					int * point = iso.find_xy(i+sqSize/2, j+sqSize/2, k+sqSize/2);

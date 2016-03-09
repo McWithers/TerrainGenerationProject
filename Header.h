@@ -27,6 +27,7 @@ class Species;
 #define FACE_HEIGHT 21
 #define DEBUGGING_WIDTH 0//1000
 #define DEBUGGING_HEIGHT 0//1000
+#define PI 3.14159265
 
 using namespace std;
 /*
