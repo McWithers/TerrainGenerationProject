@@ -5,19 +5,14 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //Forward Declared Dependencies~~~~~~~~~~~~~~~~~~~~~~~~~
-class First_Person;
-class Isometric;
-class Pool;
-class Network;
-class Neuron;
-class Species;
 
 //Included Dependencies~~~~~~~~~~~~~~~~~~~~~~~~~
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h>	
 #include <string>
 #include <iostream>
 #include <random>
+//#include <math.h>
 #include <math.h>
 #include <stdint.h>
 #include "EasyBMP.h"
@@ -25,36 +20,12 @@ class Species;
 #include "EasyBMP_DataStructures.h"
 #include "EasyBMP_VariousBMPutilities.h"
 #define FACE_HEIGHT 21
+#define ARRAY_SIZE 9
 #define DEBUGGING_WIDTH 0//1000
 #define DEBUGGING_HEIGHT 0//1000
 #define PI 3.14159265
 
 using namespace std;
-/*
-struct BMP_Header {
-	uint16_t type;			// Magic identifier
-	uint32_t size;			// File size in bytes
-	uint16_t reserved1;			// Not used
-	uint16_t reserved2;			// Not used
-	uint32_t offset;			// Offset to image data in bytes from beginning of file (54 bytes)
-	uint32_t DIB_header_size;		// DIB Header size in bytes (40 bytes)
-	int32_t  width;			// Width of the image
-	int32_t  height;			// Height of image
-	uint16_t planes;			// Number of color planes
-	uint16_t bits;			// Bits per pixel
-	uint32_t compression;		// Compression type
-	uint32_t imagesize;			// Image size in bytes
-	int32_t  xresolution;		// Pixels per meter
-	int32_t  yresolution;		// Pixels per meter
-	uint32_t ncolours;			// Number of colors  
-	uint32_t importantcolours;		// Important colors
-};
-
-struct BMP_Image {
-	BMP_Header header;
-	unsigned char *data;
-};
-*/
 
 struct voxel {
 	bool isSet;
@@ -70,47 +41,6 @@ struct pixel {
 	unsigned char g;
 	unsigned char b;
 };
-/*
-class bmp
-{
-private:
-	BMP_Image* the_image;
-	BMP_Image* example;
-public:
-	bmp(int width, int height, char*);
-	bmp();
-	~bmp();
-	void save();
-
-private:
-	char* filename;
-	// Read BMP_Image from a given file
-	//
-	BMP_Image *Read_BMP_Image();
-	BMP_Image *Read_BMP_Image(char*);
-
-	// Check the validity of the header with the file from which the header is read
-	//
-	int Is_BMP_Header_Valid(BMP_Header *bmp_hdr);
-
-	// Write BMP_Image to a given file
-	//
-	void Write_BMP_Image();
-
-	// Free memory in a given image
-	//
-	void Free_BMP_Image(BMP_Image* image);
-
-
-
-
-
-	// Given a BMP_Image, create a new image that retains the image in the
-	// box specified by left_x, right_x, bottom_y, top_y
-	//
-	BMP_Image *Crop_BMP_Image(BMP_Image *image, int left_x, int right_x,
-		int bottom_y, int top_y);
-};*/
 
 class World_Map {
 private:
@@ -173,15 +103,43 @@ private:
 	int **array2d;
 	int x;
 	int y;
+	int size;
+	int max_height;
 	void set_x(int value);
 	void set_y(int value);
    void set_array2d(int x, int y); 
    int find_midpoint(int value1, int value2);
 public:
+	void Diamond_Square::square(int *, int *, int *, int *);
    int** get_array2d();
 	int get_x();
 	int get_y();
+	int get_size();
+	int get_max_height();
 	Diamond_Square(int size, int max_height);
 	Diamond_Square();
 };
-#endif // NeatZombies header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class Generate_Shapes {
+private:
+	int a;
+public:
+	void make2dterrainimage(int**);
+	Generate_Shapes();
+	Generate_Shapes(int);
+};
+
+class DS {
+private:
+	double **the_grid;
+public:
+	DS();
+	void set_array2d(int x, int y);
+	//void DiamondSquare(float siz, float roughness, int maxx);
+	void DiamondSquare();
+	~DS() {
+		// Test
+		cout << "Destructor works fine" << endl;
+	};
+};
+#endif // header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~
