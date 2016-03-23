@@ -2,18 +2,18 @@
 #ifndef Header_H
 #define Header_H
 
-#define _CRT_SECURE_NO_WARNINGS
 
 //Forward Declared Dependencies~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //Included Dependencies~~~~~~~~~~~~~~~~~~~~~~~~~
 #include <stdio.h>
 #include <stdlib.h>	
+#include <sstream>
 #include <string>
 #include <iostream>
 #include <random>
-//#include <math.h>
 #include <math.h>
+#include <time.h>
 #include <stdint.h>
 #include "EasyBMP.h"
 #include "EasyBMP_BMP.h"
@@ -24,6 +24,7 @@
 #define DEBUGGING_WIDTH 0//1000
 #define DEBUGGING_HEIGHT 0//1000
 #define PI 3.14159265
+#define NEW 0
 
 using namespace std;
 
@@ -61,6 +62,7 @@ public:
 	void set_x(int);
 	void set_y(int);
 	void set_z(int);
+	void convert_to_3d(double**);
 	void set_point(int x, int y , int z);
 	World_Map(int x, int y, int z);
 	World_Map();
@@ -132,11 +134,14 @@ public:
 class DS {
 private:
 	double **the_grid;
+	int size;
 public:
 	DS();
+	DS(int);
+	double **get_grid();
 	void set_array2d(int x, int y);
 	//void DiamondSquare(float siz, float roughness, int maxx);
-	void DiamondSquare();
+	void DiamondSquare(const double);
 	~DS() {
 		// Test
 		cout << "Destructor works fine" << endl;

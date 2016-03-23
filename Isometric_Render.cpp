@@ -10,7 +10,7 @@ void Isometric_Render::recursive_place(int curr_x, int curr_y, int curr_z) {
 	if (curr_x <= this->get_x()[1] && curr_x >= this->get_x()[0] &&
 		curr_y <= this->get_y()[1] && curr_y >= this->get_y()[0] &&
 		curr_z <= this->get_z()[1] && curr_z >= this->get_z()[0]) {
-		place_cube(curr_x, curr_y, curr_z);
+		//place_cube(curr_x, curr_y, curr_z);
 		this->recursive_place(curr_x + 1, curr_y, curr_z);
 		this->recursive_place(curr_x, curr_y + 1, curr_z);
 		this->recursive_place(curr_x, curr_y, curr_z + 1);
