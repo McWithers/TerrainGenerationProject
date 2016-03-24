@@ -74,12 +74,11 @@ int main() {
 				}
 			}
 		}
-		time_t now = time(NULL);
-		struct tm *time_info = new tm;
-		localtime_s(time_info, &now);
-		if (time_info) {}
-		//time_t t = time(0);   // get time now
-		//struct tm * now = localtime_s(&t);
+		//time_t now = time(NULL);
+		//struct tm *time_info = new tm;
+		//localtime_s(time_info, &now);
+		time_t now = time(0);   // get time now
+		struct tm * time_info = localtime(&now);
 		std::stringstream buffer;
 		
 		//buffer << "sets/isometric"
