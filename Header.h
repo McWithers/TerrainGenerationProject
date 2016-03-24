@@ -99,7 +99,7 @@ public:
 	Isometric_Render(World_Map*,BMP*,int,int,int,int,int,int);
 	Isometric_Render();
 };
-
+/*
 class Diamond_Square {
 private:
 	int **array2d;
@@ -120,7 +120,7 @@ public:
 	int get_max_height();
 	Diamond_Square(int size, int max_height);
 	Diamond_Square();
-};
+};*/
 
 class Generate_Shapes {
 private:
