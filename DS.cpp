@@ -39,6 +39,13 @@ void DS::set_array2d(int x, int y)
 	}
 
 }
+void DS::delete_array2d()
+{
+	for (int i = 0; i < this->size; i++) {
+		free(this->the_grid[i]);
+	}
+	free(this->the_grid);
+}
 //== DiamondSquare function creates and repeats Square and diamond ==*/
 void DS::DiamondSquare(const double SEED) {
 
@@ -90,7 +97,7 @@ void DS::DiamondSquare(const double SEED) {
 					and then subtract h so the end value is
 					in the range (-h, +h)  */
 
-					avg + rand() % (int)(height) - height;
+					avg + rand() % ((int)(height) ? (int) height : 1) - height;
 
 				//Test
 				//cout << "\n height= " << height << "\n Side Length= " << sideLength <<
@@ -132,7 +139,7 @@ void DS::DiamondSquare(const double SEED) {
 				//We calculate random value in range of 2h
 				//and then subtract h so the end value is
 				//in the range (-h, +h)
-				avg = avg + rand() % (int)(height) - height;
+				avg = avg + rand() % ((int)(height) ? (int)height : 1) - height;
 				//update value for center of diamond
 				this->the_grid[x][y] = avg;
 

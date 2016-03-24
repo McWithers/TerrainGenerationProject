@@ -24,7 +24,7 @@
 #define DEBUGGING_WIDTH 0//1000
 #define DEBUGGING_HEIGHT 0//1000
 #define PI 3.14159265
-#define NEW 0
+#define NEW 1
 
 using namespace std;
 
@@ -140,10 +140,12 @@ public:
 	DS(int);
 	double **get_grid();
 	void set_array2d(int x, int y);
+	void delete_array2d();
 	//void DiamondSquare(float siz, float roughness, int maxx);
 	void DiamondSquare(const double);
 	~DS() {
 		// Test
+		//delete_array2d();
 		cout << "Destructor works fine" << endl;
 	};
 };

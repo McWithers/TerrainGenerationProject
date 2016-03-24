@@ -82,10 +82,11 @@ void World_Map::convert_to_3d(double ** map_2d) {
 	int j;
 	for (i = 0; i < this->x; i++) {
 		for (j = 0; j < this->y; j++) {
-			this->map[i][j][(int)map_2d[i][j]]->isSet = 1;
-			this->map[i][j][(int)map_2d[i][j]]->r = 50;
-			this->map[i][j][(int)map_2d[i][j]]->g = 50;
-			this->map[i][j][(int)map_2d[i][j]]->b = 50;
+			int newk = (int)map_2d[i][j];
+			this->map[i][j][newk]->isSet = 1;
+			this->map[i][j][newk]->r = 50;
+			this->map[i][j][newk]->g = 50;
+			this->map[i][j][newk]->b = 50;
 			for (int tempk = 0; tempk <= (int)map_2d[i][j]; tempk++)
 				this->map[i][j][tempk]->isSet = 1;
 		}
@@ -119,6 +120,6 @@ World_Map::~World_Map() {
 		}
 		free(map[x_i]);
 	}
-//	free(map);
+	//free(map);
 }
 

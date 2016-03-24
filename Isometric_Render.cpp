@@ -59,6 +59,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Green = 50;    //SILVER
 			pixel->Blue = 50;
 			this->bmp_image->SetPixel(y_new, x_new, *tpixel);
+			delete[] tpixel;
 			}
 		else
 		{
@@ -76,6 +77,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 					tpixel->Green = pixel->Green * 0.8;
 					tpixel->Blue = pixel->Blue * 0.8;
 					this->bmp_image->SetPixel(x_new+1, i, *tpixel);
+					delete[] tpixel;
 				}
 			}
 			else {
@@ -89,6 +91,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 					tpixel->Green = pixel->Green * 0.6;
 					tpixel->Blue = pixel->Blue * 0.6;
 					this->bmp_image->SetPixel(x_new, i, *tpixel);
+					delete[] tpixel;
 				}
 			}
 			
@@ -158,6 +161,7 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	free(point_end_l);
 	free(point_bottom);
 	free(xy);
+	delete[] pixel;
 
 }
 
