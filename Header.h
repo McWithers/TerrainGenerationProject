@@ -99,6 +99,10 @@ public:
 	Isometric_Render(World_Map*,BMP*,int,int,int,int,int,int);
 	Isometric_Render();
 };
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 /*
 class Diamond_Square {
 private:

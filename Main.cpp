@@ -12,9 +12,6 @@ int main() {
 		int y = sqSize;
 		int z = 50;
 		World_Map Plot(x, y, z);
-		int i = 0;
-		int j = 0;
-		int k = 0;
 		//Diamond_Square terrain(5, 100);
 		BMP *image = new BMP;
 		/*
