@@ -6,11 +6,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 int main() {
-	for (int count = 0; count < 16; count++) {
-		int sqSize = (2 << 3) + 1;
+	for (int count = 8; count < 9; count++) {
+		int sqSize = (2 << 5) + 1;
 		int x = sqSize;
 		int y = sqSize;
-		int z = 50;
+		int z = 100;
 		World_Map Plot(x, y, z);
 		//Diamond_Square terrain(5, 100);
 		BMP *image = new BMP;
@@ -40,7 +40,7 @@ int main() {
 
 		//for (int level = x + y + z - 3; level >=3; level--) {
 		//for (int level = 3; level < x + y + z - 3; level++) {
-		for (int level = ((count >> 3) % 2) ? 3 : x + y + z - 3; ((count >> 3) % 2) ? (level < x + y + z - 3) : (level >= 3); level += ((count >> 3) % 2) ? 1 : -1) {
+		for (int level = ((count >> 3) % 2) ? 3 : (x-1) + (y-1) + (z-1) - 3; ((count >> 3) % 2) ? (level < (x - 1) + (y - 1) + (z - 1) - 3) : (level >= 3); level += ((count >> 3) % 2) ? 1 : -1) {
 	
 			//cout << "hi" << endl;
 			
@@ -63,34 +63,34 @@ int main() {
 						//cout << "help" << endl;
 						
 						if ((i + j + k) == level) {
-							if (Plot.map[i][j][k]->isSet == 1) {
+							if (Plot.map[x-i][y-j][k]->isSet == 1) {
 								/*Plot.map[i][j][k]->r = 192;
 								Plot.map[i][j][k]->g = 192;
 								Plot.map[i][j][k]->b = 192;
-								*/iso.place_cube(i, j, k);
+								*/iso.place_cube(x-i,y-j, k);
 							}
 						}
 					}
 				}
 			}
 		}
-		//time_t now = time(NULL);
-		//struct tm *time_info = new tm;
-		//localtime_s(time_info, &now);
-		time_t now = time(0);   // get time now
-		struct tm * time_info = localtime(&now);
+		time_t now = time(NULL);
+		struct tm *time_info = new tm;
+		localtime_s(time_info, &now);
+		//time_t now = time(0);   // get time now
+		//struct tm * time_info = localtime(&now);
 		std::stringstream buffer;
 		
-		//buffer << "sets/isometric"
-			/*	<< (time_info->tm_year + 1900) << '.'
+		buffer << "fixed"
+				<< (time_info->tm_year + 1900) << '.'
 			<< (time_info->tm_mon + 1) << '.'
 			<< time_info->tm_mday << '-'
 			<< time_info->tm_hour << "h_"
 			<< time_info->tm_min << "m_"
 			<< time_info->tm_sec << "s"
-			*/
-		buffer << "sets/"
-			<< (count >> 3)%2 << (count >> 2) % 2 << (count >> 1) % 2 << (count >> 0) % 2
+			
+		//buffer << "newsets/"
+			//<< (count >> 3)%2 << (count >> 2) % 2 << (count >> 1) % 2 << (count >> 0) % 2
 					<< ".bmp";
 		image->WriteToFile(buffer.str().c_str());
 		delete time_info;

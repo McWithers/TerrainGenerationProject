@@ -15,9 +15,9 @@ void World_Map::allocate_memory() {
 			for (z_i = 0; z_i < this->z; z_i++) {
 				voxel *v = (voxel*)malloc(sizeof(voxel) * 1);
 				v->isSet = 0;
-				v->r = 255 / this->x*x_i % 255;
-				v->g = 255 / this->y*y_i % 255;
-				v->b = 255 / this->z*z_i % 255;
+				v->r = 0;// / this->x*x_i % 255;
+				v->g = 0;// / this->y*y_i % 255;
+				v->b = 2047 / this->z*z_i % 255;
 				v_z[z_i] = v;
 			}
 			v_yz[y_i] = v_z;
@@ -80,14 +80,14 @@ void World_Map::set_z(int new_z) {
 void World_Map::convert_to_3d(double ** map_2d) {
 	int i;
 	int j;
-	for (i = 0; i < this->x; i++) {
-		for (j = 0; j < this->y; j++) {
+	for (i = 0; i < this->x-1; i++) {
+		for (j = 0; j < this->y-1; j++) {
 			int newk = (int)map_2d[i][j];
 			this->map[i][j][newk]->isSet = 1;
 			this->map[i][j][newk]->r = 50;
 			this->map[i][j][newk]->g = 50;
 			this->map[i][j][newk]->b = 50;
-			for (int tempk = 0; tempk <= (int)map_2d[i][j]; tempk++)
+			for (int tempk = 0; tempk <= (int)map_2d[i][j]; tempk++)// {}
 				this->map[i][j][tempk]->isSet = 1;
 		}
 	}
