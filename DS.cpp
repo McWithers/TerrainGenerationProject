@@ -34,7 +34,7 @@ void DS::set_array2d(int x, int y)
 	}
 	for (i = 0; i < x; i++) {
 		for (int j = 0; j < y; j++) {
-			this->the_grid[i][j] = -1;
+			this->the_grid[i][j] = 0;
 		}
 	}
 
