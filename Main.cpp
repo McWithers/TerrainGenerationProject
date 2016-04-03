@@ -66,7 +66,7 @@ int main() {
 						pixel->Green = 192;
 					//	iso.place_cube(newx, newy, newz, pixel);
 						if (k == newz) {
-							std::cerr << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << std::endl  ;
+							//std::cerr << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << std::endl  ;
 							iso.place_cube(newx, newy, newz, pixel);
 						}
 						else if (k <= newz) {

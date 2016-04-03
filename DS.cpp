@@ -8,7 +8,7 @@ DS::DS() {
 	set_array2d(this->size,this->size);
 	this->size = 9;
 	set_array2d(9, 9);
-	std::cerr << "This is the constructor, an obj has been created" << std::endl  ;
+	//std::cerr << "This is the constructor, an obj has been created" << std::endl  ;
 }
 
 DS::DS(int the_size) {
