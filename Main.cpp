@@ -30,7 +30,7 @@ int main() {
 	*/
 	//Generate_Shapes shape(4);
 	//shape.make2dterrainimage(terrain.get_array2d());
-
+	
 	DS* obj = new DS(sqSize);
 	obj->DiamondSquare(z - 1);
 	//Plot.convert_to_3d(obj->get_grid());
@@ -66,7 +66,7 @@ int main() {
 						pixel->Green = 192;
 					//	iso.place_cube(newx, newy, newz, pixel);
 						if (k == newz) {
-							cout << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << endl << flush;
+							std::cout << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << std::endl << flush;
 							iso.place_cube(newx, newy, newz, pixel);
 						}
 						else if (k <= newz) {

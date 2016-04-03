@@ -8,7 +8,7 @@ DS::DS() {
 	set_array2d(this->size,this->size);
 	this->size = 9;
 	set_array2d(9, 9);
-	cout << "This is the constructor, an obj has been created" << endl << flush;
+	std::cout << "This is the constructor, an obj has been created" << std::endl << flush;
 }
 
 DS::DS(int the_size) {
@@ -99,8 +99,8 @@ void DS::DiamondSquare(const double SEED) {
 					avg + rand() % ((int)(height) ? (int) height : 1) - height;
 
 				//Test
-				//cout << "\n height= " << height << "\n Side Length= " << sideLength <<
-					//"\n Avg=" << avg << endl;
+				//std::cout << "\n height= " << height << "\n Side Length= " << sideLength <<
+					//"\n Avg=" << avg << std::endl;
 			}
 
 		} // End of the square part
@@ -150,7 +150,7 @@ void DS::DiamondSquare(const double SEED) {
 
 				//test
 				//printf("ave: %f\n", avg);
-				//cout << "ave = " << avg << endl;
+				//std::cout << "ave = " << avg << std::endl;
 			}
 		}
 	} //Big outer for

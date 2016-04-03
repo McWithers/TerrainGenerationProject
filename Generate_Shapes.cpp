@@ -63,7 +63,7 @@ a[1] = 80;//y2
 /*for (i = -sqSize/2 + 2; i < x_max-sqSize/2 - 2; i++) {
 for (j = -sqSize/2 + 2; j < y_max-sqSize/2 - 2; j++) {
 for (k = -sqSize/2 + 2; k < z_max-sqSize/2 - 2; k++) {
-//cout << "cos: " <<  11 * cos(k) << endl;
+//std::cout << "cos: " <<  11 * cos(k) << std::endl;
 //if(i == 11 * cos(k *  (PI/180) || j == 11 * sin(k * (PI/180)))){
 
 //if(i == j || i == k == j){
@@ -83,7 +83,7 @@ pixel->Green = Plot.get_point(i, j, k)->g;
 pixel->Blue = Plot.get_point(i, j, k)->b;
 image->SetPixel(point[0], iso.height - point[1], *pixel);
 
-//cout << "i: " << i << "  j: " << j << "  k: " << k << endl;
+//std::cout << "i: " << i << "  j: " << j << "  k: " << k << std::endl;
 
 }
 }

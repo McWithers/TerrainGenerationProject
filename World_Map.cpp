@@ -31,7 +31,7 @@ void World_Map::allocate_memory() {
 		map[x_i][y_i] = (voxel *) calloc(this->z, sizeof(voxel));
 		}
 	}//*/
-	cout << "done allocating!" << endl << flush;
+	std::cout << "done allocating!" << std::endl << flush;
 	
 }
 
@@ -93,9 +93,9 @@ void World_Map::convert_to_3d(double ** map_2d) {
 }
 
 World_Map::World_Map(int xBound, int yBound, int zBound) {
-	cout << "The value for x is:" << xBound << endl;
-	cout << "The value for y is:" << yBound << endl;
-	cout << "The value for z is:" << zBound << endl << flush;
+	std::cout << "The value for x is:" << xBound << std::endl;
+	std::cout << "The value for y is:" << yBound << std::endl;
+	std::cout << "The value for z is:" << zBound << std::endl << flush;
 	this->set_x(xBound);
 	this->set_y(yBound);
 	this->set_z(zBound);
