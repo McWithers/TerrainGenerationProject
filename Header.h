@@ -13,6 +13,9 @@
 #include <iostream>
 #include <random>
 #include <math.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <direct.h>
 #include <time.h>
 #include <stdint.h>
 #include "EasyBMP.h"
@@ -95,6 +98,7 @@ public:
 	void recursive_place(int, int, int);
 	void create_image(World_Map);
 	void place_cube(int, int, int);
+	void place_cube(int x, int y, int z, RGBApixel *pix);
 	void draw_line(int * , int *, RGBApixel *);
 	Isometric_Render(World_Map*,BMP*,int,int,int,int,int,int);
 	Isometric_Render();
@@ -135,11 +139,11 @@ public:
 
 class DS {
 private:
-	double **the_grid;
 	int size;
 public:
 	DS();
 	DS(int);
+	double **the_grid;
 	double **get_grid();
 	void set_array2d(int x, int y);
 	void delete_array2d();
@@ -147,7 +151,7 @@ public:
 	void DiamondSquare(const double);
 	~DS() {
 		// Test
-		//delete_array2d();
+		delete_array2d();
 		cout << "Destructor works fine" << endl;
 	};
 };

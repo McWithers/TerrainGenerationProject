@@ -165,6 +165,54 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 
 }
 
+void Isometric_Render::place_cube(int x, int y, int z, RGBApixel *pix) {
+	int * xy = find_xy(x, y, z);
+	RGBApixel * pixel = new RGBApixel;
+	pixel->Alpha = 127;
+	pixel->Red = pix->Red;
+	pixel->Blue = pix->Blue;
+	pixel->Green = pix->Green;
+
+	int * point_start = (int *)malloc(sizeof(int) * 2);
+	int * point_end_r = (int *)malloc(sizeof(int) * 2);
+	int * point_end_l = (int *)malloc(sizeof(int) * 2);
+	int * point_bottom = (int *)malloc(sizeof(int) * 2);
+	int h = FACE_HEIGHT;
+	int h_root = (int)(h * sqrt(3)) / 2;
+	int h_half = h / 2;
+	for (int i = 0; i < 2; i++) {
+		point_start[i] = xy[i];
+	}
+	//point_bottom[0] = xy[0];
+	//point_bottom[1] = xy[1] - h;
+	//draw_line(point_start, point_bottom);
+	point_end_r[0] = xy[0] + h_root;
+	point_end_r[1] = xy[1] + h_half;
+	point_end_l[0] = xy[0] - h_root;
+	point_end_l[1] = xy[1] + h_half;
+	draw_line(point_start, point_end_r, pixel);
+	draw_line(point_start, point_end_l, pixel);
+	//point_start[1] = point_start[1] + h;
+	//draw_line(point_start, point_end_r);
+	//draw_line(point_start, point_end_l);
+	//point_bottom[0] = point_end_r[0];
+	//point_bottom[1] = point_end_r[1] - h;
+	//draw_line(point_bottom, point_end_r);
+	//point_end_r[0] = xy[0];
+	//point_end_r[1] = xy[1] - h;
+	//draw_line(point_end_r, point_bottom);
+	//point_bottom[0] = point_end_l[0];
+	//point_bottom[1] = point_end_l[1] - h;
+	//draw_line(point_bottom, point_end_l);
+	//draw_line(point_end_r, point_bottom);
+	free(point_start);
+	free(point_end_r);
+	free(point_end_l);
+	free(point_bottom);
+	free(xy);
+	delete[] pixel;
+
+}
 int* Isometric_Render::find_xy(int x, int y, int z) {
 	int *x_y = (int*)malloc(sizeof(int)*2);
 	int h = FACE_HEIGHT;
