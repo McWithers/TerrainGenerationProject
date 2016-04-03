@@ -6,7 +6,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 int main() {
-	cout << "Test\n" << flush;
 	int sqSize = (2 << 3) + 1;
 	int x = sqSize;
 	int y = sqSize;
@@ -67,7 +66,7 @@ int main() {
 						pixel->Green = 192;
 					//	iso.place_cube(newx, newy, newz, pixel);
 						if (k == newz) {
-							cout << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << endl;
+							cout << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << endl << flush;
 							iso.place_cube(newx, newy, newz, pixel);
 						}
 						else if (k <= newz) {

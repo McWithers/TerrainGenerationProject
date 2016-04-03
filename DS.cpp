@@ -8,7 +8,7 @@ DS::DS() {
 	set_array2d(this->size,this->size);
 	this->size = 9;
 	set_array2d(9, 9);
-	cout << "This is the constructor, an obj has been created" << endl;
+	cout << "This is the constructor, an obj has been created" << endl << flush;
 }
 
 DS::DS(int the_size) {
@@ -68,8 +68,7 @@ void DS::DiamondSquare(const double SEED) {
 	//double ranVal = rand() % (int)height;// % (int)height;
 	if (NEW) 
 		srand(time(NULL));
-	cout << "ranVal: " << rand() % (int) height << endl;
-
+	
 	for (int sideLength = this->size - 1; sideLength >= 2; sideLength /= 2, height /= 2.0) {
 		/*half the length of the side of a square,
 		Or distance from diamond center to one corner
