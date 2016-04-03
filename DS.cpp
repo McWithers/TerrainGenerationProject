@@ -150,7 +150,7 @@ void DS::DiamondSquare(const double SEED) {
 				if (y == 0)  this->the_grid[x][this->size - 1] = avg;
 
 				//test
-				printf("ave: %f\n", avg);
+				//printf("ave: %f\n", avg);
 				//cout << "ave = " << avg << endl;
 			}
 		}
