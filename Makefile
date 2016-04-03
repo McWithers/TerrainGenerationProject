@@ -14,8 +14,8 @@ CFLAGS	= -Wall -Wshadow -Werror -g -std=c++11
 ## Build rule to build executable, by default, Main is build since it 
 ## is the label of the first rule
 
-Main: Main.o First_Person.o Isometric_Render.o World_Map.o EasyBMP.o  DiamondSquare.o
-	$(CC) $(CFLAGS) Main.cpp First_Person.cpp Isometric_Render.cpp World_Map.cpp DiamondSquare.cpp EasyBMP.o -o Main
+Main: Main.o First_Person.o Isometric_Render.o World_Map.o EasyBMP.o  DS.o
+	$(CC) $(CFLAGS) Main.cpp First_Person.cpp Isometric_Render.cpp World_Map.cpp DS.cpp EasyBMP.o -o Main
 ## rule to clean up object files and executable so that you can rebuild
 
 ##clean:	

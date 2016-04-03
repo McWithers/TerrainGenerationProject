@@ -80,7 +80,7 @@ void DS::DiamondSquare(const double SEED) {
 
 		/* ***************************
 		//generate new square values *
-		//****************************/
+		*/
 		for (int x = 0; x<this->size - 1; x += sideLength) {
 			for (int y = 0; y<this->size - 1; y += sideLength) {
 				//x, y is upper left corner of square

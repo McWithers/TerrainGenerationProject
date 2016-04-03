@@ -25,7 +25,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 	int y2 = y[1];
 	bool isPos = (x1 > x2) ? 1 : 0;
 	int right = 1;
-	float brightness = 1.0;
+	//float brightness = 1.0;
 	if (y2 - y1 < 0) {
 		right = 0;
 	}
