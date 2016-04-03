@@ -14,7 +14,7 @@ void Isometric_Render::recursive_place(int curr_x, int curr_y, int curr_z) {
 		this->recursive_place(curr_x + 1, curr_y, curr_z);
 		this->recursive_place(curr_x, curr_y + 1, curr_z);
 		this->recursive_place(curr_x, curr_y, curr_z + 1);
-		std::cout << "rec: curr_x: " << curr_x << "  curr_y: " << curr_y << "  curr_z: " << curr_z << "  sum: " << curr_x + curr_y + curr_z << std::endl  ;
+		std::cerr << "rec: curr_x: " << curr_x << "  curr_y: " << curr_y << "  curr_z: " << curr_z << "  sum: " << curr_x + curr_y + curr_z << std::endl  ;
 	}
 }
 

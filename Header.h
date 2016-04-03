@@ -151,7 +151,7 @@ public:
 	~DS() {
 		// Test
 		delete_array2d();
-		std::cout << "Destructor works fine" << std::endl  ;
+		std::cerr << "Destructor works fine" << std::endl  ;
 	};
 };
 #endif // header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~
