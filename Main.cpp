@@ -6,6 +6,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 int main() {
+	cout << "Test\n" << flush;
 	int sqSize = (2 << 3) + 1;
 	int x = sqSize;
 	int y = sqSize;
