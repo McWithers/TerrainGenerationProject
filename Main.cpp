@@ -66,7 +66,7 @@ int main() {
 						pixel->Green = 192;
 					//	iso.place_cube(newx, newy, newz, pixel);
 						if (k == newz) {
-							std::cout << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << std::endl << flush;
+							std::cout << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << std::endl  ;
 							iso.place_cube(newx, newy, newz, pixel);
 						}
 						else if (k <= newz) {
@@ -100,5 +100,6 @@ int main() {
 		<< ".bmp";
 	image->WriteToFile(buffer.str().c_str());
 	//delete time_info;
+	std::cout.flush();
 	return EXIT_SUCCESS;
 }
