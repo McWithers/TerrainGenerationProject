@@ -15,7 +15,6 @@
 #include <math.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <direct.h>
 #include <time.h>
 #include <stdint.h>
 #include "EasyBMP.h"

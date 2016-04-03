@@ -10,7 +10,7 @@ int main() {
 	int x = sqSize;
 	int y = sqSize;
 	int z = sqSize;
-	////World_Map Plot(x, y, z);
+	//World_Map Plot(x, y, z);
 	//Diamond_Square terrain(5, 100);
 	BMP *image = new BMP;
 	/*
@@ -81,25 +81,23 @@ int main() {
 			}
 		}
 	}
-	time_t now = time(NULL);
-	struct tm *time_info = new tm;
-	localtime_s(time_info, &now);
+	//time_t now = time(NULL);
+	//struct tm *time_info = new tm;
+	//localtime_s(time_info, &now);
 	std::stringstream buffer;
 
-	struct stat st = { 0 };
+	//struct stat st = { 0 };
 
-	if (true){//stat("/some/directory", &st) == -1) {
-		_mkdir("/test");
-	}
-	buffer << "fixed"
-		<< (time_info->tm_year + 1900) << '.'
+	buffer << "isometric"
+		/*<< (time_info->tm_year + 1900) << '.'
 		<< (time_info->tm_mon + 1) << '.'
 		<< time_info->tm_mday << '-'
 		<< time_info->tm_hour << "h_"
 		<< time_info->tm_min << "m_"
 		<< time_info->tm_sec << "s"
+		*/
 		<< ".bmp";
 	image->WriteToFile(buffer.str().c_str());
-	delete time_info;
+	//delete time_info;
 	return EXIT_SUCCESS;
 }
