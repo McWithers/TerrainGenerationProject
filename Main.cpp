@@ -34,7 +34,7 @@ int main() {
 	DS* obj = new DS(sqSize);
 	obj->DiamondSquare(z - 1);
 	//Plot.convert_to_3d(obj->get_grid());
-	Isometric_Render iso(NULL, image, 0, x - 1, 0, y - 1, 0, z - 1);
+	Isometric_Render iso(NULL, image, 0, x, 0, y, 0, z);
 	image->SetSize(iso.width + DEBUGGING_WIDTH, iso.height + DEBUGGING_HEIGHT);
     
     //Random print statement
@@ -42,11 +42,11 @@ int main() {
 
 	for (int level = 3; level < (x - 1) + (y - 1) + (z - 1) - 3; level += 1) {
 
-		for (int i = 1; i < x - 1; i += 1) {
+		for (int i = 1; i < x; i += 1) {
 
-			for (int j = 1; j < y - 1; j += 1) {
+			for (int j = 1; j < y; j += 1) {
 
-				for (int k = 1; k < z - 1; k += 1) {
+				for (int k = 1; k < z; k += 1) {
 
 
 					if ((i + j + k) == level) {
