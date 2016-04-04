@@ -38,6 +38,7 @@ int main() {
 	image->SetSize(iso.width + DEBUGGING_WIDTH, iso.height + DEBUGGING_HEIGHT);
     
     //Random print statement
+	double *** map2d = &(obj->the_grid);
 
 	for (int level = 3; level < (x - 1) + (y - 1) + (z - 1) - 3; level += 1) {
 
@@ -66,7 +67,7 @@ int main() {
 						pixel->Green = 192;
 					//	iso.place_cube(newx, newy, newz, pixel);
 						if (k == newz) {
-							//std::cerr << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << std::endl  ;
+							std::cerr << "found pixel: " << 100.0 * ((double) level / ((x - 1) + (y - 1) + (z - 1) - 3 ))<< "%" << std::endl  ;
 							iso.place_cube(newx, newy, newz, pixel);
 						}
 						else if (k <= newz) {
@@ -82,21 +83,18 @@ int main() {
 			}
 		}
 	}
-	//time_t now = time(NULL);
-	//struct tm *time_info = new tm;
-	//localtime_s(time_info, &now);
+	time_t now = time(NULL);
+	struct tm *time_info = new tm;
+	localtime_s(time_info, &now);
 	std::stringstream buffer;
 
-	//struct stat st = { 0 };
-
 	buffer << "isometric"
-		/*<< (time_info->tm_year + 1900) << '.'
+		<< (time_info->tm_year + 1900) << '.'
 		<< (time_info->tm_mon + 1) << '.'
 		<< time_info->tm_mday << '-'
 		<< time_info->tm_hour << "h_"
 		<< time_info->tm_min << "m_"
 		<< time_info->tm_sec << "s"
-		*/
 		<< ".bmp";
 	image->WriteToFile(buffer.str().c_str());
 	//delete time_info;
