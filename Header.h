@@ -80,6 +80,7 @@ private:
 	int y_u;
 	int z_l;
 	int z_u;
+	char * isRendered;
 	//pixel** image;
 	//World_Map *map;
 public:
@@ -90,12 +91,15 @@ public:
 	int * get_x();
 	int * get_y();
 	int * get_z();
+	double *** map_2d;
 	int * find_xy(int, int, int);
+	void set_Render(int, int, int);
+	bool is_rendered(int x, int y, int z);
 	void set_x(int, int);
 	void set_y(int, int);
 	void set_z(int, int);
+	void initialize_render_check();
 	void recursive_place(int, int, int);
-	void create_image(World_Map);
 	void place_cube(int, int, int);
 	void place_cube(int x, int y, int z, RGBApixel *pix);
 	void draw_line(int * , int *, RGBApixel *);

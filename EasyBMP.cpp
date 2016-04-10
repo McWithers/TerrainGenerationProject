@@ -136,7 +136,7 @@ RGBApixel BMP::GetPixel( int i, int j ) const
 
 bool BMP::SetPixel( int i, int j, RGBApixel NewPixel )
 {
- Pixels[i][this->Height - j - 1] = NewPixel;
+	Pixels[i][this->Height - j - 1] = NewPixel;
 //	Pixels[i][j] = NewPixel;
 	return true;
 }

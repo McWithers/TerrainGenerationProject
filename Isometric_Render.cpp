@@ -1,18 +1,58 @@
 #include "Header.h"
 
 
-void Isometric_Render::create_image(World_Map world)
+void Isometric_Render::initialize_render_check()
 {
+	int size = (x_u - x_l)*(y_u - y_l)*(z_u - z_l)-1;
+	int numChars = size / 8;
+	isRendered = (char*)calloc(sizeof(char),numChars);
+}
 
+void Isometric_Render::set_Render(int x,int y,int z) {
+	int loc = x + ((x_u - x_l) * (y + (y_u - y_l) * z));
+
+	isRendered[loc / 8] ^= (-(1) ^ isRendered[loc / 8]) & (1 << (loc % 8));
+}
+
+bool Isometric_Render::is_rendered(int x, int y, int z) {
+
+	int loc = x + ((x_u - x_l) * (y + (y_u - y_l) * z));
+	
+	return (isRendered[loc / 8] >> (loc % 8)) % 2;
 }
 
 void Isometric_Render::recursive_place(int curr_x, int curr_y, int curr_z) {
-	if (curr_x <= this->get_x()[1] && curr_x >= this->get_x()[0] &&
-		curr_y <= this->get_y()[1] && curr_y >= this->get_y()[0] &&
-		curr_z <= this->get_z()[1] && curr_z >= this->get_z()[0]) {
-		//place_cube(curr_x, curr_y, curr_z);
-		this->recursive_place(curr_x + 1, curr_y, curr_z);
-		this->recursive_place(curr_x, curr_y + 1, curr_z);
+	
+	if (curr_x < x_u && curr_x > x_l &&
+		curr_y < y_u && curr_y > y_l &&
+		curr_z < z_u && curr_z > z_l &&
+		!is_rendered(curr_x, curr_y, curr_z)) {
+		set_Render(curr_x, curr_y, curr_z);
+		int newx = x_u - curr_x;
+		int newy = y_u - curr_y;
+		int newz = (*map_2d)[newx][newy];
+		RGBApixel * pixel = new RGBApixel;
+		pixel->Alpha = 127;
+		pixel->Red = 192;
+		pixel->Blue = 192;
+		pixel->Green = 192;
+		//	iso.place_cube(newx, newy, newz, pixel);
+		if (curr_z == newz) {
+			std::cerr << "found pixel: " << 100 * (double)(curr_x + curr_y + curr_z) / (((x_u - 1) + (y_u - 1) + (z_u - 1) - 3)) << "%" << std::endl;
+			//printf("");
+			place_cube(newx, newy, newz, pixel);
+		}
+		else if (curr_z <= newz) {
+			pixel->Red = 255 / (x_u - 1)*curr_x % 255;
+			pixel->Green = 255 / (y_u - 1)*curr_y % 255;
+			pixel->Blue = 255 / (z_u - 1)*curr_z % 255;
+			place_cube(newx, newy, curr_z, pixel);
+		}
+		delete pixel;
+		//}
+		
+		this->recursive_place(curr_x - 1, curr_y, curr_z);
+		this->recursive_place(curr_x, curr_y - 1, curr_z);
 		this->recursive_place(curr_x, curr_y, curr_z + 1);
 		//std::cerr << "rec: curr_x: " << curr_x << "  curr_y: " << curr_y << "  curr_z: " << curr_z << "  sum: " << curr_x + curr_y + curr_z << std::endl  ;
 	}
@@ -219,7 +259,7 @@ int* Isometric_Render::find_xy(int x, int y, int z) {
 	int h_root = (int)(h * sqrt(3)) / 2;
 	int h_half = h / 2;
 	//inititalize to 0,0,0
-	x_y[0] = (this->get_y()[1] - this->get_y()[0] + 1)*(h_root-1) + 0;
+	x_y[0] = (y_u - y_l + 1)*(h_root-1) + 0;
 	x_y[1] = h-1;
 	//printf("initial: x:%d,y:%d\n", x_y[0], x_y[1]);
 
@@ -293,6 +333,7 @@ Isometric_Render::Isometric_Render(World_Map* _map, BMP *the_bmp_image, int xl, 
 	int * dimensions = this->find_xy((xu - xl + 1), (yu - yl + 1), (zu - zl + 1));
 	this->width = ((xu - xl + 1)+ (xu - xl + 1))*(h_root-1) + 1;
 	this->height = dimensions[1] - h + 1;
+	initialize_render_check();
 	free(dimensions);
 
 }
