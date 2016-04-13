@@ -3,12 +3,12 @@
 
 void Isometric_Render::initialize_render_check()
 {
-	int size = (x_u - x_l)*(y_u - y_l)*(z_u - z_l)-1;
+	int size = (x_u - x_l)*(y_u - y_l)*(z_u - z_l) - 1;
 	int numChars = size / 8;
-	isRendered = (char*)calloc(sizeof(char),numChars);
+	isRendered = (char*)calloc(sizeof(char), numChars);
 }
 
-void Isometric_Render::set_Render(int x,int y,int z) {
+void Isometric_Render::set_Render(int x, int y, int z) {
 	int loc = x + ((x_u - x_l) * (y + (y_u - y_l) * z));
 
 	isRendered[loc / 8] ^= (-(1) ^ isRendered[loc / 8]) & (1 << (loc % 8));
@@ -17,47 +17,85 @@ void Isometric_Render::set_Render(int x,int y,int z) {
 bool Isometric_Render::is_rendered(int x, int y, int z) {
 
 	int loc = x + ((x_u - x_l) * (y + (y_u - y_l) * z));
-	
 	return (isRendered[loc / 8] >> (loc % 8)) % 2;
 }
 
-void Isometric_Render::recursive_place(int curr_x, int curr_y, int curr_z) {
-	
-	if (curr_x < x_u && curr_x > x_l &&
-		curr_y < y_u && curr_y > y_l &&
-		curr_z < z_u && curr_z > z_l &&
-		!is_rendered(curr_x, curr_y, curr_z)) {
-		set_Render(curr_x, curr_y, curr_z);
-		int newx = x_u - curr_x;
-		int newy = y_u - curr_y;
-		int newz = (*map_2d)[newx][newy];
-		RGBApixel * pixel = new RGBApixel;
-		pixel->Alpha = 127;
-		pixel->Red = 192;
-		pixel->Blue = 192;
-		pixel->Green = 192;
-		//	iso.place_cube(newx, newy, newz, pixel);
-		if (curr_z == newz) {
-			std::cerr << "found pixel: " << 100 * (double)(curr_x + curr_y + curr_z) / (((x_u - 1) + (y_u - 1) + (z_u - 1) - 3)) << "%" << std::endl;
-			//printf("");
-			place_cube(newx, newy, newz, pixel);
+void Isometric_Render::BFS_place(int x, int y, int z) {
+	queue<coord*> *the_queue = new queue < coord* >;
+
+	coord* first = new coord;
+	first->x = x;
+	first->y = y;
+	first->z = z;
+	//printf("%d,%d,%d\n", first->x, first->y, first->z);
+	the_queue->push(first);
+	set_Render(first->x, first->y, first->z);
+
+	call_pixel(first->x, first->y, first->z);
+
+	while (!the_queue->empty()) {
+		coord* current = the_queue->front();
+		the_queue->pop();
+		int curr_x = current->x;
+		int curr_y = current->y;
+		int curr_z = current->z;
+		//printf("%d,%d,%d\n", curr_x, curr_y, curr_z);
+		delete current;
+
+		if (curr_x < x_u && curr_x > x_l &&
+			curr_y < y_u && curr_y > y_l &&
+			curr_z < z_u && curr_z > z_l) {
+
+			set_Render(curr_x, curr_y, curr_z);
+
+			call_pixel(curr_x, curr_y, curr_z);
+
 		}
-		else if (curr_z <= newz) {
-			pixel->Red = 255 / (x_u - 1)*curr_x % 255;
-			pixel->Green = 255 / (y_u - 1)*curr_y % 255;
-			pixel->Blue = 255 / (z_u - 1)*curr_z % 255;
-			place_cube(newx, newy, curr_z, pixel);
+		for (int child_count = 0; child_count < 3; child_count++) {
+			int modx = curr_x + !(child_count - 0);
+			int mody = curr_y + !(child_count - 1);
+			int modz = curr_z + !(child_count - 2);
+			if (modx < x_u && modx > x_l &&
+				mody < y_u && mody > y_l &&
+				modz < z_u && modz > z_l &&
+				!is_rendered(modx, mody,
+					modz)) {
+				coord* child = new coord;
+				child->x = modx;
+				child->y = mody;
+				child->z = modz;
+				set_Render(child->x, child->y, child->z);
+
+				the_queue->push(child);
+			}
 		}
-		delete pixel;
-		//}
-		
-		this->recursive_place(curr_x - 1, curr_y, curr_z);
-		this->recursive_place(curr_x, curr_y - 1, curr_z);
-		this->recursive_place(curr_x, curr_y, curr_z + 1);
-		//std::cerr << "rec: curr_x: " << curr_x << "  curr_y: " << curr_y << "  curr_z: " << curr_z << "  sum: " << curr_x + curr_y + curr_z << std::endl  ;
+
 	}
 }
 
+void Isometric_Render::call_pixel(int x, int y, int z) {
+	int newx = x_u - x;
+	int newy = y_u - y;
+	int newz = (*map_2d)[newx][newy];
+	RGBApixel * pixel = new RGBApixel;
+	pixel->Alpha = 127;
+	pixel->Red = 192;
+	pixel->Blue = 192;
+	pixel->Green = 192;
+
+	if (z == newz) {
+		//std::cerr << "found pixel: " << 100 * (double)(x + y + z) / (((x_u - 1) + (y_u - 1) + (z_u - 1) - 3)) << "%" << std::endl;
+		//printf("");
+		place_cube(newx, newy, newz, pixel);
+	}
+	else if (z <= newz) {
+		pixel->Red = 255 / (x_u - 1)*x % 255;
+		pixel->Green = 255 / (y_u - 1)*y % 255;
+		pixel->Blue = 255 / (z_u - 1)*z % 255;
+		place_cube(newx, newy, z, pixel);
+	}
+	delete pixel;
+}
 void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 	int x1 = x[0];
 	int x2 = y[0];
@@ -69,7 +107,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 	if (y2 - y1 < 0) {
 		right = 0;
 	}
-	const bool steep = (fabs(y2 - y1) > fabs(x2 - x1));
+	const bool steep = (fabs((double)y2 - y1) > fabs((double)x2 - x1));
 	if (steep) {
 		std::swap(x1, y1);
 		std::swap(x2, y2);
@@ -81,7 +119,7 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 	}
 
 	const float dx = (float)(x2 - x1);
-	const float dy = (float)fabs(y2 - y1);
+	const float dy = (float)fabs((double)y2 - y1);
 
 	float error = dx / 2.0f;
 	const int ystep = (y1 < y2) ? 1 : -1;
@@ -100,11 +138,11 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 			pixel->Blue = 50;
 			this->bmp_image->SetPixel(y_new, x_new, *tpixel);
 			delete[] tpixel;
-			}
+		}
 		else
 		{
 			if (x_new == (int)x1)
-				maxX++; 
+				maxX++;
 			int i;
 			if (isPos) {
 				for (i = y_new; i < y_new + FACE_HEIGHT - (FACE_HEIGHT - deltay * 2 - 1); i++) {
@@ -116,12 +154,12 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 					tpixel->Red = pixel->Red * 0.8;
 					tpixel->Green = pixel->Green * 0.8;
 					tpixel->Blue = pixel->Blue * 0.8;
-					this->bmp_image->SetPixel(x_new+1, i, *tpixel);
+					this->bmp_image->SetPixel(x_new + 1, i, *tpixel);
 					delete[] tpixel;
 				}
 			}
 			else {
-				for (i = y_new; i < y_new + FACE_HEIGHT - deltay * 2; i++) {				
+				for (i = y_new; i < y_new + FACE_HEIGHT - deltay * 2; i++) {
 					this->bmp_image->SetPixel(x_new, i, *pixel);
 				}
 				for (i = y_new; i > y_new - FACE_HEIGHT; i--) {
@@ -134,13 +172,13 @@ void Isometric_Render::draw_line(int *x, int *y, RGBApixel * pixel) {
 					delete[] tpixel;
 				}
 			}
-			
+
 			/*int y_f = 0;
 			for (int y_f = y_new; y_f < FACE_HEIGHT - (dy * 2) - 1; y_f++) {
-				this->bmp_image->SetPixel(x_new, y_f, *pixel);
+			this->bmp_image->SetPixel(x_new, y_f, *pixel);
 			}
 			for (y_f = y_new; y_f > -FACE_HEIGHT * dx; y_f--) {
-				this->bmp_image->SetPixel(x_new, y_f, *pixel);
+			this->bmp_image->SetPixel(x_new, y_f, *pixel);
 			}
 			*/
 		}
@@ -160,13 +198,13 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	int * xy = find_xy(x, y, z);
 	RGBApixel * pixel = new RGBApixel;
 	pixel->Alpha = 127;
-	pixel->Red = this->the_map->get_point(x,y,z)->r;
-	pixel->Blue = this->the_map->get_point(x,y,z)->b;
-	pixel->Green = this->the_map->get_point(x,y,z)->g;
+	pixel->Red = this->the_map->get_point(x, y, z)->r;
+	pixel->Blue = this->the_map->get_point(x, y, z)->b;
+	pixel->Green = this->the_map->get_point(x, y, z)->g;
 
-	int * point_start = (int *) malloc(sizeof(int) * 2);
-	int * point_end_r = (int *) malloc(sizeof(int) * 2);
-	int * point_end_l = (int *) malloc(sizeof(int) * 2);
+	int * point_start = (int *)malloc(sizeof(int) * 2);
+	int * point_end_r = (int *)malloc(sizeof(int) * 2);
+	int * point_end_l = (int *)malloc(sizeof(int) * 2);
 	int * point_bottom = (int *)malloc(sizeof(int) * 2);
 	int h = FACE_HEIGHT;
 	int h_root = (int)(h * sqrt(3)) / 2;
@@ -182,7 +220,7 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 	point_end_l[0] = xy[0] - h_root;
 	point_end_l[1] = xy[1] + h_half;
 	draw_line(point_start, point_end_r, pixel);
-	draw_line(point_start, point_end_l, pixel); 
+	draw_line(point_start, point_end_l, pixel);
 	//point_start[1] = point_start[1] + h;
 	//draw_line(point_start, point_end_r);
 	//draw_line(point_start, point_end_l);
@@ -207,6 +245,7 @@ void Isometric_Render::place_cube(int x, int y, int z) {
 
 void Isometric_Render::place_cube(int x, int y, int z, RGBApixel *pix) {
 	int * xy = find_xy(x, y, z);
+	times_called++;
 	RGBApixel * pixel = new RGBApixel;
 	pixel->Alpha = 127;
 	pixel->Red = pix->Red;
@@ -254,30 +293,30 @@ void Isometric_Render::place_cube(int x, int y, int z, RGBApixel *pix) {
 
 }
 int* Isometric_Render::find_xy(int x, int y, int z) {
-	int *x_y = (int*)malloc(sizeof(int)*2);
+	int *x_y = (int*)malloc(sizeof(int) * 2);
 	int h = FACE_HEIGHT;
 	int h_root = (int)(h * sqrt(3)) / 2;
 	int h_half = h / 2;
 	//inititalize to 0,0,0
-	x_y[0] = (y_u - y_l + 1)*(h_root-1) + 0;
-	x_y[1] = h-1;
+	x_y[0] = (y_u - y_l + 1)*(h_root - 1) + 0;
+	x_y[1] = h - 1;
 	//printf("initial: x:%d,y:%d\n", x_y[0], x_y[1]);
 
 	//add x components
 	if (x) {
-		x_y[0] += x*(h_root-1);
+		x_y[0] += x*(h_root - 1);
 		x_y[1] += x*h_half;
 		//printf("x components: x:%d,y:%d\n", x_y[0], x_y[1]);
 	}
 	//add y components
 	if (y) {
-		x_y[0] -=y*(h_root-1);
+		x_y[0] -= y*(h_root - 1);
 		x_y[1] += y*h_half;
 		//printf("y components: x:%d,y:%d\n", x_y[0], x_y[1]);
 	}//add z components
 	if (z) {
 		x_y[0] += 0;
-		x_y[1] += z*(h-1);
+		x_y[1] += z*(h - 1);
 		//printf("final/z components: x:%d,y:%d\n", x_y[0], x_y[1]);
 	}
 	//printf("point_xyz (%d,%d,%d) moved to point_xy(%d,%d)\n",x,y,z,x_y[0],x_y[1]);
@@ -285,21 +324,21 @@ int* Isometric_Render::find_xy(int x, int y, int z) {
 }
 
 int * Isometric_Render::get_x() {
-	int* result = static_cast<int*>(malloc(sizeof(int)*2));
+	int* result = static_cast<int*>(malloc(sizeof(int) * 2));
 	result[0] = this->x_l;
 	result[1] = this->x_u;
 	return result;
 }
 
 int * Isometric_Render::get_y() {
-	int* result = static_cast<int*>(malloc(sizeof(int)*2));
+	int* result = static_cast<int*>(malloc(sizeof(int) * 2));
 	result[0] = this->y_l;
 	result[1] = this->y_u;
 	return result;
 }
 
 int * Isometric_Render::get_z() {
-	int* result = static_cast<int*>(malloc(sizeof(int)*2));
+	int* result = static_cast<int*>(malloc(sizeof(int) * 2));
 	result[0] = this->z_l;
 	result[1] = this->z_u;
 	return result;
@@ -331,9 +370,10 @@ Isometric_Render::Isometric_Render(World_Map* _map, BMP *the_bmp_image, int xl, 
 	//int h_half = h / 2;
 	//int max_xy = (xu - xl + 1) > (yu - yl + 1) ? (xu - xl + 1) : (yu - yl + 1);
 	int * dimensions = this->find_xy((xu - xl + 1), (yu - yl + 1), (zu - zl + 1));
-	this->width = ((xu - xl + 1)+ (xu - xl + 1))*(h_root-1) + 1;
+	this->width = ((xu - xl + 1) + (xu - xl + 1))*(h_root - 1) + 1;
 	this->height = dimensions[1] - h + 1;
 	initialize_render_check();
+	times_called = 0;
 	free(dimensions);
 
 }

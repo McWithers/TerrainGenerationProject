@@ -13,9 +13,11 @@
 #include <iostream>
 #include <random>
 #include <math.h>
+#include <Windows.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <queue>
 #include <stdint.h>
 #include "EasyBMP.h"
 #include "EasyBMP_BMP.h"
@@ -45,6 +47,12 @@ struct pixel {
 	unsigned char b;
 };
 
+struct coord {
+	short x;
+	short y;
+	short z;
+};
+
 class World_Map {
 private:
 
@@ -65,7 +73,7 @@ public:
 	void set_y(int);
 	void set_z(int);
 	void convert_to_3d(double**);
-	void set_point(int x, int y , int z);
+	void set_point(int x, int y, int z);
 	World_Map(int x, int y, int z);
 	World_Map();
 	~World_Map();
@@ -85,12 +93,14 @@ private:
 	//World_Map *map;
 public:
 	int width;
+	void Isometric_Render::call_pixel(int x, int y, int z);
 	World_Map *the_map;
 	int height;
 	BMP *bmp_image;
 	int * get_x();
 	int * get_y();
 	int * get_z();
+	long long int times_called;
 	double *** map_2d;
 	int * find_xy(int, int, int);
 	void set_Render(int, int, int);
@@ -99,11 +109,11 @@ public:
 	void set_y(int, int);
 	void set_z(int, int);
 	void initialize_render_check();
-	void recursive_place(int, int, int);
+	void BFS_place(int, int, int);
 	void place_cube(int, int, int);
 	void place_cube(int x, int y, int z, RGBApixel *pix);
-	void draw_line(int * , int *, RGBApixel *);
-	Isometric_Render(World_Map*,BMP*,int,int,int,int,int,int);
+	void draw_line(int *, int *, RGBApixel *);
+	Isometric_Render(World_Map*, BMP*, int, int, int, int, int, int);
 	Isometric_Render();
 };
 
@@ -111,24 +121,24 @@ public:
 /*
 class Diamond_Square {
 private:
-	int **array2d;
-	int x;
-	int y;
-	int size;
-	int max_height;
-	void set_x(int value);
-	void set_y(int value);
-   void set_array2d(int x, int y); 
-   int find_midpoint(int value1, int value2);
+int **array2d;
+int x;
+int y;
+int size;
+int max_height;
+void set_x(int value);
+void set_y(int value);
+void set_array2d(int x, int y);
+int find_midpoint(int value1, int value2);
 public:
-	void Diamond_Square::square(int *, int *, int *, int *);
-   int** get_array2d();
-	int get_x();
-	int get_y();
-	int get_size();
-	int get_max_height();
-	Diamond_Square(int size, int max_height);
-	Diamond_Square();
+void Diamond_Square::square(int *, int *, int *, int *);
+int** get_array2d();
+int get_x();
+int get_y();
+int get_size();
+int get_max_height();
+Diamond_Square(int size, int max_height);
+Diamond_Square();
 };*/
 
 class Generate_Shapes {
