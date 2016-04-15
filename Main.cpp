@@ -9,8 +9,8 @@ int main() {
 	time_t now = time(NULL);
 	struct tm *time_info = new tm;
 	localtime_s(time_info, &now);
-	for (int test_num = 0; test_num < 30; test_num++) {
-		for (int the_size_power = 1; the_size_power < 7; the_size_power++) {
+	for (int test_num = 0; test_num < 1; test_num++) {
+		for (int the_size_power = 1; the_size_power < 8; the_size_power++) {
 			int sqSize = (2 << the_size_power) + 1;
 			int x = sqSize;
 			int y = sqSize;
