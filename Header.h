@@ -141,14 +141,10 @@ Diamond_Square(int size, int max_height);
 Diamond_Square();
 };*/
 
-class Generate_Shapes {
-private:
-	int a;
-public:
-	void make2dterrainimage(int**);
-	Generate_Shapes();
-	Generate_Shapes(int);
-};
+
+
+
+
 
 class DS {
 private:
@@ -167,5 +163,22 @@ public:
 		delete_array2d();
 		//std::cerr << "Destructor works fine" << std::endl  ;
 	};
+};
+
+int Generate();
+class GUI_Variables 
+{
+public:
+	int size;
+	int depth;
+	int color1R;
+	int color1G;
+	int color1B;
+	int color2R;
+	int color2G;
+	int color2B;
+	int gradient;
+	GUI_Variables(int, int, int, int, int, int, int, int, int);
+	GUI_Variables();
 };
 #endif // header file inclusion if ~~~~~~~~~~~~~~~~~~~~~~~~~

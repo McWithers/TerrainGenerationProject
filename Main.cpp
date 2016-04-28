@@ -3,9 +3,10 @@
 #include <stdlib.h>
 #include "Header.h"
 #include "EasyBMP.h"
+#include "Main.h"
 #define _CRT_SECURE_NO_WARNINGS
 
-int main() {
+int Generate() {
 	time_t now = time(NULL);
 	struct tm *time_info = new tm;
 	localtime_s(time_info, &now);
@@ -14,7 +15,7 @@ int main() {
 			int sqSize = (2 << the_size_power) + 1;
 			int x = sqSize;
 			int y = sqSize;
-			int z = sqSize/4;
+			int z = sqSize/ 4;
 			//World_Map Plot(x, y, z);
 			//Diamond_Square terrain(5, 100);
 			BMP *image = new BMP;
@@ -65,9 +66,9 @@ int main() {
 				<< time_info->tm_hour << "h_"
 				<< time_info->tm_min << "m_"
 				<< time_info->tm_sec << "s";
-			CreateDirectory(dir_buffer.str().c_str(), NULL);
+			//CreateDirectory(dir_buffer.str().c_str(), NULL);
 
-			buffer << "BFSvsITER_" << test_num << "___"
+			buffer /* << "BFSvsITER_" << test_num << "___"
 				<< (time_info->tm_year + 1900) << '.'
 				<< (time_info->tm_mon + 1) << '.'
 				<< time_info->tm_mday << '-'
@@ -76,7 +77,7 @@ int main() {
 				<< time_info->tm_sec << "s" 
 				<< "\\"
 				<< the_size_power << "_"
-				<< "BFS_"
+				*/ << "BFS_"
 				<< (double)(endBFS - beginBFS) / CLOCKS_PER_SEC << "seconds"
 				<< ".bmp";
 			image->WriteToFile(buffer.str().c_str());
@@ -124,7 +125,7 @@ int main() {
 
 			std::stringstream buffer2;
 
-			buffer2 << ("BFSvsITER_" + to_string(test_num)) << "___"
+			buffer2 /*<< ("BFSvsITER_" + to_string(test_num)) << "___"
 				<< (time_info->tm_year + 1900) << '.'
 				<< (time_info->tm_mon + 1) << '.'
 				<< time_info->tm_mday << '-'
@@ -133,7 +134,7 @@ int main() {
 				<< time_info->tm_sec << "s" 
 				<< "\\"
 				<< the_size_power << "_"
-				<< "ITER_"
+				*/ << "ITER_"
 				<< (double)(endITER - beginITER) / CLOCKS_PER_SEC << "seconds"
 				<< ".bmp";
 			image->WriteToFile(buffer2.str().c_str());
