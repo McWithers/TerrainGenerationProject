@@ -165,7 +165,7 @@ public:
 	};
 };
 
-int Generate();
+int Generate(int size, int depth, int color1R, int color1G, int color1B, int color2R, int color2G, int color2B, int gradient);
 class GUI_Variables 
 {
 public:

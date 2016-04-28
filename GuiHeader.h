@@ -7,7 +7,7 @@
 namespace GUI {
 	class Interactions {
 	public:
-		static GUIDLL_API int GetToTheChoppa();
+		static GUIDLL_API int GetToTheChoppa(int size, int depth, int color1R, int color1G, int color1B, int color2R, int color2G, int color2B, int gradient);
 
 		static GUIDLL_API void SqSize(int size, int face_height);
 
